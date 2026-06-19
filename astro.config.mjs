@@ -1,10 +1,23 @@
 // @ts-check
 
 import tailwindcss from '@tailwindcss/vite';
-import { defineConfig } from 'astro/config';
+import { defineConfig, fontProviders } from 'astro/config';
+
+// bejamas:astro-fonts:start
+/** @type {NonNullable<import("astro").AstroUserConfig["fonts"]>} */
+const BEJAMAS_ASTRO_FONTS = [
+	{
+		provider: fontProviders.google(),
+		name: 'Poppins',
+		cssVariable: '--font-sans',
+		subsets: ['latin'],
+	},
+];
+// bejamas:astro-fonts:end
 
 // https://astro.build/config
 export default defineConfig({
+	fonts: BEJAMAS_ASTRO_FONTS,
 	vite: {
 		plugins: [tailwindcss()],
 	},

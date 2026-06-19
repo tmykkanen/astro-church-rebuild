@@ -7,8 +7,16 @@
 		"defaultBranch": "main"
 	},
 	"files": {
-		"ignoreUnknown": false
+		"ignoreUnknown": false,
+		"includes": [
+			"**",
+			"!**/.astro",
+			"!**/dist",
+			"!node_modules",
+			"!src/components/ui"
+		]
 	},
+
 	"formatter": {
 		"enabled": true,
 		"indentStyle": "tab"
