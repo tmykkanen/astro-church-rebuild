@@ -38,10 +38,18 @@
 					"name": "biome"
 				}
 			}
-		}
+		},
+		"CSS": { "formatter": { "language_server": { "name": "biome" } } }
 	},
 	// https://zed.dev/docs/languages/astro?highlight=astro#using-the-tailwind-css-language-server-with-astro
 	"lsp": {
+		"vscode-css-language-server": {
+			"settings": {
+				"css": {
+					"lint": { "unknownAtRules": "ignore" }
+				}
+			}
+		},
 		"tailwindcss-language-server": {
 			"settings": {
 				"includeLanguages": {
