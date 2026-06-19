@@ -11,7 +11,9 @@
 		"preview": "astro preview",
 		"astro": "astro",
 		"verify": "biome check --write && astro check",
-		"prepare": "husky"
+		"prepare": "husky",
+		"predev": "node scripts/generate-theme-css.js",
+		"prebuild": "node scripts/generate-theme-css.js"
 	},
 	"dependencies": {
 		"@astrojs/check": "^0.9.9",
