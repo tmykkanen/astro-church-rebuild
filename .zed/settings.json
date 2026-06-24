@@ -73,6 +73,15 @@
 					]
 				}
 			}
+		},
+		"yaml-language-server": {
+			"settings": {
+				"yaml": {
+					"schemaStore": {
+						"enable": false
+					}
+				}
+			}
 		}
 	}
 }
