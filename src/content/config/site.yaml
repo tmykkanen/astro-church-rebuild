@@ -1,0 +1,11 @@
+general:
+  churchName: Sojourners Church
+  churchDescription: This is our church
+  youtube: ""
+header:
+  displayTitle: true
+  displayLogo: false
+theme:
+  customCss:
+    code: ""
+    lang: css

@@ -1,0 +1,287 @@
+# yaml-language-server: $schema=https://unpkg.com/@sveltia/cms/schema/sveltia-cms.json
+
+backend:
+  name: github
+  repo: tmykkanen/astro-church
+
+media_folder: /public/media
+public_folder: /media
+
+collections:
+  - name: sermons
+    label: Sermons
+    label_singular: Sermon
+    folder: src/content/sermons
+    slug: "{{fields.date}}-{{fields.title}}"
+    fields:
+      - name: title
+        label: Sermon Title
+        widget: string
+      - name: date
+        label: Date Preached
+        widget: datetime
+        format: "YYYY-MM-DD"
+        time_format: false
+      - name: series
+        label: Sermon Series
+        widget: relation
+        collection: series
+        display_fields: [title]
+        search_fields: [title]
+      - name: scriptures
+        label: Sermon Texts
+        label_singular: Sermon Text
+        widget: list
+        field: { name: reference, label: Scripture Reference, widget: string }
+      - name: preacher
+        label: Preacher
+        widget: relation
+        collection: preachers
+        display_fields: [fullName]
+        search_fields: [fullName]
+      - name: mediaURL
+        label: Media URL
+        widget: string
+        required: false
+      - name: bulletinURL
+        label: Bulletin URL
+        widget: string
+        required: false
+      - name: body
+        label: Notes
+        widget: markdown
+        required: false
+
+  - name: series
+    label: Sermon Series
+    folder: src/content/series
+    slug: "{{fields.title}}"
+    fields:
+      - name: title
+        label: Series Title
+        widget: string
+      - name: date
+        label: Start Date
+        widget: datetime
+        format: "YYYY-MM-DD"
+        time_format: false
+      - name: image
+        label: Series Image
+        widget: image
+      - name: books
+        label: Bible Books
+        widget: select
+        multiple: true
+        options:
+          - Genesis
+          - Exodus
+          - Leviticus
+          - Numbers
+          - Deuteronomy
+          - Joshua
+          - Judges
+          - Ruth
+          - 1 Samuel
+          - 2 Samuel
+          - 1 Kings
+          - 2 Kings
+          - 1 Chronicles
+          - 2 Chronicles
+          - Ezra
+          - Nehemiah
+          - Esther
+          - Job
+          - Psalms
+          - Proverbs
+          - Ecclesiastes
+          - Song of Solomon
+          - Isaiah
+          - Jeremiah
+          - Lamentations
+          - Ezekiel
+          - Daniel
+          - Hosea
+          - Joel
+          - Amos
+          - Obadiah
+          - Jonah
+          - Micah
+          - Nahum
+          - Habakkuk
+          - Zephaniah
+          - Haggai
+          - Zechariah
+          - Malachi
+          - Matthew
+          - Mark
+          - Luke
+          - John
+          - Acts
+          - Romans
+          - 1 Corinthians
+          - 2 Corinthians
+          - Galatians
+          - Ephesians
+          - Philippians
+          - Colossians
+          - 1 Thessalonians
+          - 2 Thessalonians
+          - 1 Timothy
+          - 2 Timothy
+          - Titus
+          - Philemon
+          - Hebrews
+          - James
+          - 1 Peter
+          - 2 Peter
+          - 1 John
+          - 2 John
+          - 3 John
+          - Jude
+          - Revelation
+
+  - name: preachers
+    label: Preachers
+    folder: src/content/preachers
+    slug: "{{fields.fullName}}"
+    summary: "{{fullName}}"
+    fields:
+      - name: firstName
+        label: First Name
+        widget: string
+      - name: lastName
+        label: Last Name
+        widget: string
+      - name: fullName
+        label: Full Name
+        widget: compute
+        value: "{{fields.firstName}} {{fields.lastName}}"
+      - name: isGuest
+        label: Guest Preacher
+        widget: boolean
+        default: true
+      - name: sortPriority
+        label: Sort Priority
+        widget: number
+        default: 0
+      - name: image
+        label: Upload a Picture
+        widget: image
+        required: false
+      - name: body
+        label: Bio
+        widget: markdown
+        required: false
+  - name: pages
+    label: Pages
+    label_singular: Page
+    folder: src/content/pages
+    fields:
+      - name: title
+        label: Title
+        widget: string
+      - name: body
+        label: Body
+        widget: markdown
+  - name: config
+    label: Configuration
+    files:
+      - name: site
+        label: Site
+        file: src/content/config/site.yaml
+        fields:
+          - name: general
+            label: General Settings
+            widget: object
+            fields:
+              - name: churchName
+                label: Church Name
+                widget: string
+              - name: churchDescription
+                label: Church Description
+                widget: text
+              - name: youtube
+                label: YouTube Channel
+                widget: string
+                required: false
+          - name: header
+            label: Header Settings
+            widget: object
+            fields:
+              - name: displayTitle
+                label: Display Church name in Header
+                widget: boolean
+                default: true
+              - name: displayLogo
+                label: Display Church Logo in Header
+                widget: boolean
+                default: false
+          - name: theme
+            label: Theme
+            widget: object
+            fields:
+              - name: customCss
+                label: Custom Css
+                widget: code
+                default_language: css
+                required: false
+      - name: navigation
+        label: Navigation
+        file: src/content/navigation/primary.yaml
+        fields:
+          - name: navigationEntries
+            label: Navigation Entries
+            label_singular: Navigation Entry
+            widget: list
+            typeKey: navigationEntryType
+            types:
+              - &type_page
+                name: page
+                label: Page
+                fields:
+                  - &navigation_label
+                    name: label
+                    label: Label
+                    widget: string
+                  - name: page
+                    label: Page
+                    widget: relation
+                    collection: pages
+              - &type_feature
+                name: feature
+                label: Feature
+                fields:
+                  - *navigation_label
+                  - name: featureType
+                    label: Type
+                    widget: select
+                    options:
+                      - { label: Sermon, value: "sermons" }
+                      - { label: Blog, value: "blog" }
+                      - { label: Calendar, value: "calendar" }
+                  - name: customSlug
+                    label: Custom URL Slug
+                    comment: Custom URL will be slugified. Leave blank for default URL.
+                    widget: string
+                    required: false
+              - &type_external
+                name: external
+                label: External Link
+                fields:
+                  - *navigation_label
+                  - name: url
+                    label: URL
+                    widget: string
+                    type: url
+              - name: group
+                label: Group
+                fields:
+                  - *navigation_label
+                  - name: children
+                    label: Children
+                    widget: list
+                    typeKey: navigationEntryType
+                    types:
+                      - *type_page
+                      - *type_feature
+                      - *type_external

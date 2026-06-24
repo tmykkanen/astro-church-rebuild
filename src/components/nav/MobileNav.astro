@@ -1,0 +1,49 @@
+---
+import { Menu, X } from '@lucide/astro';
+
+import type { NavigationEntry } from '#/content/navigation/types';
+
+import Link from './Link.astro';
+
+interface Props {
+	navigationEntries: NavigationEntry[];
+}
+
+const { navigationEntries } = Astro.props;
+---
+
+<!-- Menu Control -->
+<nav class="lg:hidden group">
+	<input type="checkbox" id="menu-toggle" class="hidden">
+	<div class="relative z-50 size-10">
+		<label for="menu-toggle" aria-label="toggle for menu" class="absolute">
+			<Menu
+				class="p-2 size-10 transition-all duration-300 ease-out group-has-checked:scale-0 group-has-checked:rotate-90"
+			/>
+		</label>
+		<label for="menu-toggle" aria-label="toggle for menu" class="absolute">
+			<X
+				class="size-10 scale-0 rotate-90 p-2 transition-all duration-300 ease-out group-has-checked:scale-100 group-has-checked:rotate-0"
+			/>
+		</label>
+	</div>
+
+	<div
+		class="bg-background fixed inset-0 z-40 flex h-full translate-x-full flex-col items-center justify-center transition-all duration-200 ease-out group-has-checked:translate-none"
+	>
+		<ul>
+			{navigationEntries.map((entry) => (
+			entry.navigationEntryType === 'group'
+			  ? <li>
+					  <span class="text-5xl font-bold text-primary uppercase">{entry.label}</span>
+						<ul class="ml-4 p-4 border-muted flex flex-col gap-2 border-l-2">
+						  {entry.children.map((childEntry) => (
+						    <Link entry={childEntry} isChild={true} isMobile={true}/>
+								))}
+						</ul>
+					</li>
+				:  <Link entry={entry}  isMobile={true}/>
+			))}
+		</ul>
+	</div>
+</nav>

@@ -1,6 +1,20 @@
 ---
 import '#/styles/global.css';
+
 import { Font } from 'astro:assets';
+
+import Footer from '#/components/Footer.astro';
+import Header from '#/components/Header.astro';
+import config from '#/config/site.json';
+
+interface Props {
+	pageTitle: string;
+}
+
+const { pageTitle } = Astro.props;
+
+const siteName = config.general.name ?? 'Church Website';
+const metaTitle = pageTitle ? `${pageTitle} | ${siteName}` : siteName;
 ---
 
 <!doctype html>
@@ -9,15 +23,20 @@ import { Font } from 'astro:assets';
 		<!-- bejamas:astro-fonts:start -->
 		<Font cssVariable="--font-sans" />
 		<!-- bejamas:astro-fonts:end -->
+
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width">
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg">
 		<link rel="icon" href="/favicon.ico">
 		<meta name="generator" content={Astro.generator}>
-		<title>Astro Basics</title>
+
+		<!-- TITLE -->
+		<title>{metaTitle}</title>
 	</head>
 	<body>
+		<Header />
 		<slot />
+		<Footer />
 	</body>
 </html>
 
