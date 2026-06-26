@@ -35,7 +35,6 @@ export const ConfigHomepageSchema = z.object({
 		.object({
 			text: z.object({
 				code: z.string(),
-				lang: z.literal('html'),
 			}),
 			bgImage: z.string().optional(),
 		})
@@ -44,7 +43,6 @@ export const ConfigHomepageSchema = z.object({
 		.object({
 			text: z.object({
 				code: z.string(),
-				lang: z.literal('html'),
 			}),
 			link: z.url().optional(),
 		})
@@ -63,10 +61,7 @@ export const ConfigFooterSchema = z.object({
 });
 
 export const ConfigThemeSchema = z.object({
-	customCss: z
-		.object({
-			lang: z.literal('css'),
-			code: z.string(),
-		})
-		.optional(),
+	customCss: z.object({
+		code: z.string(),
+	}),
 });
