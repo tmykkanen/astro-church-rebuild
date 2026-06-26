@@ -1,0 +1,18 @@
+sections:
+  - heading: Sundays at 10am
+    content: <address>123 Main Street</br>Albert Lea, MN 56007</address>
+  - heading: Contact Us
+    content: |-
+      notarealemail@astro.church
+
+      (123) 456-7899
+subscribe:
+  isActive: true
+  heading: Weekly Bulletin
+  content: Sign up to stay informed and connected to Astro Church weekly happenings.
+giving:
+  isActive: true
+  heading: Give to Astro Church
+  content: Click below to set up a one time or recurring gift to Astro Church.
+  link: https://get.tithe.ly/
+form: null

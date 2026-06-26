@@ -1,9 +1,18 @@
 ---
+import { Image } from 'astro:assets';
+
 import { Button } from '#/components/ui/button';
+import { getConfig } from '#/content/config/getConfig';
 import Layout from '#/layouts/Layout.astro';
+import { getImage } from '#/lib/getImage';
+
+const config = await getConfig('site');
+
+const img = getImage(config.churchLogo?.image);
 ---
 
 <Layout pageTitle="Home">
 	<h1>Hello World</h1>
 	<Button>This is a button</Button>
+	{img && <Image src={img} alt={''}/>}
 </Layout>

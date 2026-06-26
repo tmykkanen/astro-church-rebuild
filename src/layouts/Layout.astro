@@ -5,7 +5,7 @@ import { Font } from 'astro:assets';
 
 import Footer from '#/components/Footer.astro';
 import Header from '#/components/Header.astro';
-import config from '#/config/site.json';
+import { getConfig } from '#/content/config/getConfig';
 
 interface Props {
 	pageTitle: string;
@@ -13,7 +13,9 @@ interface Props {
 
 const { pageTitle } = Astro.props;
 
-const siteName = config.general.name ?? 'Church Website';
+const config = await getConfig('site');
+
+const siteName = config.churchName.name ?? 'Church Website';
 const metaTitle = pageTitle ? `${pageTitle} | ${siteName}` : siteName;
 ---
 

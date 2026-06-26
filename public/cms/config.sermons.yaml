@@ -1,0 +1,45 @@
+collections:
+  - name: sermons
+    label: Sermons
+    label_singular: Sermon
+    folder: src/content/sermons
+    media_folder: "{{media_folder}}/sermons"
+    slug: "{{fields.date}}-{{fields.title}}"
+    fields:
+      - name: title
+        label: Sermon Title
+        widget: string
+      - name: date
+        label: Date Preached
+        widget: datetime
+        format: "YYYY-MM-DD"
+        time_format: false
+      - name: series
+        label: Sermon Series
+        widget: relation
+        collection: series
+        display_fields: [title]
+        search_fields: [title]
+      - name: scriptures
+        label: Sermon Texts
+        label_singular: Sermon Text
+        widget: list
+        field: { name: reference, label: Scripture Reference, widget: string }
+      - name: preacher
+        label: Preacher
+        widget: relation
+        collection: preachers
+        display_fields: [fullName]
+        search_fields: [fullName]
+      - name: mediaURL
+        label: Media URL
+        widget: string
+        required: false
+      - name: bulletinURL
+        label: Bulletin URL
+        widget: string
+        required: false
+      - name: body
+        label: Notes
+        widget: markdown
+        required: false
