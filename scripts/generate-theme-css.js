@@ -1,10 +1,13 @@
 // scripts/generate-css.js
 import fs from 'node:fs';
 
-// biome-ignore lint/style/noRestrictedImports: Must use relative import here
-import config from '../src/config/site.json' with { type: 'json' };
+import { parse } from 'yaml';
 
-const CUSTOM_CSS = config.theme?.customCSS || '/* No custom CSS defined */';
+const file = fs.readFileSync('src/content/config/theme.yaml', 'utf8');
+
+const theme = parse(file);
+
+const CUSTOM_CSS = theme.customCss?.code ?? '/* No custom CSS defined */';
 
 const fileContent = `/* AUTO-GENERATED - DO NOT EDIT */\n\n${CUSTOM_CSS}`;
 
