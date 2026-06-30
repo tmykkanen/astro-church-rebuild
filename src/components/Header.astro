@@ -18,24 +18,26 @@ const primaryNav = await getNavigation('primary');
 ---
 
 <header
-	class:list={["layout-full py-4 h-26 flex w-full items-center justify-end md:justify-center", currentPath !== "/" && "bg-muted"]}
+	class:list={["layout-full py-4 h-26", currentPath !== "/" && "bg-muted"]}
 >
-	<div class="flex w-full items-center">
-		{config.churchName.showInHeader
-			? ( <Text as="h2" variant="displayLG" class='flex-1'
+	<div class="flex justify-center md:justify-end">
+		<div class="flex w-full items-center gap-4">
+			{config.churchName.showInHeader
+			? ( <Text as="h2" variant="displayLG"
 				><a href="/">{config.churchName.name}</a></Text
 			>
 			) :
 			(<h2 class="sr-only">{config.churchName.name}</h2>)}
 
-		{logo && config.churchLogo?.showInHeader &&  (
+			{logo && config.churchLogo?.showInHeader &&  (
 		<Image
           src={logo}
           alt="logo"
           class={"max-h-18"}
         />
 		)}
+		</div>
+		<DesktopNav navigationEntries={primaryNav} />
+		<MobileNav navigationEntries={primaryNav} />
 	</div>
-	<DesktopNav navigationEntries={primaryNav} />
-	<MobileNav navigationEntries={primaryNav} />
 </header>

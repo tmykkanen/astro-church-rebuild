@@ -1,18 +1,66 @@
 ---
 import { Image } from 'astro:assets';
 
+import Text from '#/components/Text.astro';
 import { Button } from '#/components/ui/button';
 import { getConfig } from '#/content/config/getConfig';
 import Layout from '#/layouts/Layout.astro';
+import { generateClamp } from '#/lib/generateClamp';
 import { getImage } from '#/lib/getImage';
 
-const config = await getConfig('site');
+const siteConfig = await getConfig('site');
+const { hero, cta } = await getConfig('homepage');
 
-const img = getImage(config.churchLogo?.image);
+const bgImg = getImage(hero?.bgImage);
 ---
 
 <Layout pageTitle="Home">
-	<h1>Hello World</h1>
-	<Button>This is a button</Button>
-	{img && <Image src={img} alt={''}/>}
+	<main class="relative min-h-[calc(100vh-6.5rem)]">
+		<h1 class="sr-only">{siteConfig.churchName}</h1>
+		<!-- <Button>This is a button</Button>
+		{img && <Image src={img} alt={''}/>} -->
+		<section
+			class="grid min-h-[calc(100vh-6.5rem)] w-full bg-cover bg-right"
+			aria-labelledby="hero-heading"
+		>
+			{bgImg && (
+			  <>
+			    <Image
+						src={bgImg}
+						alt={'Homepage Background'}
+						class="absolute inset-0 h-full w-full object-cover"
+						priority
+					/>
+					<div
+            class="bg-muted z-10 col-start-1 row-start-1 h-full w-full opacity-85"
+            aria-hidden="true"
+          />
+			</>
+		)}
+
+			<div class="layout-base isolate z-20 col-start-1 row-start-1 gap-y-8">
+				<Text
+					as="h2"
+					id="hero-heading"
+					variant="displayXL"
+					set:html={hero?.text.code}
+				/>
+				{cta?.text && (
+          // clamp(min, (vw coefficient)vw + (intercept)px, max)
+          // To calculate (vw coefficient)vw + (intercept)px
+          // Slope = (maxFontPx - minFontpx) / (maxVw - minVw) | (208-96) / (1440-375)
+          // vw coefficient = slope x 100 | 0.10516 x 100
+          // intercept = minSize - slope × minViewport | 375 - (0.10516 x 375)
+            <Button
+              as='a'
+              variant={'secondary'}
+              target={'_blank'}
+              rel={'noopener noreferrer'}
+              class={'uppercase tracking-widest whitespace-normal font-semibold h-auto w-full rounded-md text-center'}
+              style={`font-size:${generateClamp(0.75, 0.875)}`}
+            >{cta.text.code}</Button>
+          )}
+			</div>
+		</section>
+	</main>
 </Layout>
