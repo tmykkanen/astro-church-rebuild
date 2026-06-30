@@ -1,2 +1,2 @@
-pnpm biome check --write
+pnpm lint-staged
 pnpm astro check

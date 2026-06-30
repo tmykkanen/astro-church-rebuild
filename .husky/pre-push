@@ -1,0 +1,3 @@
+pnpm vitest run
+
+exit 1
