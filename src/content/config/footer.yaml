@@ -3,8 +3,7 @@ sections:
     content: <address>123 Main Street</br>Albert Lea, MN 56007</address>
   - heading: Contact Us
     content: |-
-      notarealemail@astro.church
-
+      notarealemail@astro.church</br>
       (123) 456-7899
 subscribe:
   isActive: true

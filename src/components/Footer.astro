@@ -1,1 +1,28 @@
-<p>FOOTER</p>
+---
+import { Icon } from 'astro-icon/components';
+
+import { getConfig } from '#/content/config/getConfig';
+
+import Socials from './socials/Socials.astro';
+import Text from './Text.astro';
+import { Button } from './ui/button';
+import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip';
+
+const siteConfig = await getConfig('site');
+const footerConfig = await getConfig('footer');
+---
+
+<footer class="bg-secondary text-secondary-foreground layout-base py-8">
+	<section class="flex flex-col gap-8">
+		{footerConfig.sections?.map((section) => (
+		<div class="flex flex-col gap-2">
+      <Text as="h2" variant='heading'>{section.heading}</Text>
+      <span set:html={section.content} />
+		</div>
+    ))}
+		{siteConfig.socials &&
+      <div class="flex">
+    		<Socials socials={siteConfig.socials} />
+   	</div>}
+	</section>
+</footer>

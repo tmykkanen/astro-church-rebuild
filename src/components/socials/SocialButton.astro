@@ -1,0 +1,24 @@
+---
+import { Icon } from 'astro-icon/components';
+
+import { Button } from '#/components/ui/button';
+
+import type { Social } from './types';
+
+interface Props {
+	social: Social;
+}
+
+const { social } = Astro.props;
+---
+
+<Button
+	as="a"
+	class="text-muted hover:text-primary bg-transparent hover:bg-transparent [&_svg:not([class*='size-'])]:size-5"
+	href={social.link}
+	target={'_blank'}
+	rel={'noopener noreferrer'}
+	aria-label={`click link for ${social.name}`}
+>
+	<Icon name={`simple-icons:${social.icon}`} />
+</Button>

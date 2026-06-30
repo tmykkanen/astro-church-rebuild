@@ -2,6 +2,7 @@
 
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig, fontProviders } from 'astro/config';
+import icon from 'astro-icon';
 
 // bejamas:astro-fonts:start
 /** @type {NonNullable<import("astro").AstroUserConfig["fonts"]>} */
@@ -21,4 +22,5 @@ export default defineConfig({
 	vite: {
 		plugins: [tailwindcss()],
 	},
+	integrations: [icon()],
 });

@@ -1,0 +1,31 @@
+---
+import {
+	Tooltip,
+	TooltipContent,
+	TooltipTrigger,
+} from '#/components/ui/tooltip';
+
+import SocialButton from './SocialButton.astro';
+import type { Social } from './types';
+
+interface Props {
+	socials: Social[];
+}
+
+const { socials } = Astro.props;
+---
+
+{socials.map((social) => (
+    social.showInFooter && (
+      social.tooltip ?
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <SocialButton {social} />
+      		</TooltipTrigger>
+      		<TooltipContent>
+      		  <p>{social.tooltip}</p>
+     	    </TooltipContent>
+        </Tooltip>
+      : <SocialButton {social} />
+    )
+ ))}
