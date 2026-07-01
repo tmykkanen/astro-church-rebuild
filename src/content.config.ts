@@ -2,14 +2,17 @@ import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
-import { NavigationEntrySchema } from '#/content/navigation/schema';
-
 import {
 	ConfigFooterSchema,
 	ConfigHomepageSchema,
 	ConfigSiteSchema,
 	ConfigThemeSchema,
-} from './content/config/schema';
+} from '#/content/schemas/config';
+import { NavigationEntrySchema } from '#/content/schemas/navigation';
+
+import { PreacherSchema } from './content/schemas/preacher';
+import { SeriesSchema } from './content/schemas/series';
+import { SermonSchema } from './content/schemas/sermon';
 
 const configSite = defineCollection({
 	loader: glob({ pattern: 'site.yaml', base: './src/content/config' }),
@@ -44,11 +47,29 @@ const navigationCollection = defineCollection({
 	schema: NavigationEntrySchema,
 });
 
+const preacherCollection = defineCollection({
+	loader: glob({ pattern: '**/*.md', base: './src/content/preachers' }),
+	schema: PreacherSchema,
+});
+
+const seriesCollection = defineCollection({
+	loader: glob({ pattern: '**/*.md', base: './src/content/series' }),
+	schema: SeriesSchema,
+});
+
+const sermonCollection = defineCollection({
+	loader: glob({ pattern: '**/*.md', base: './src/content/sermons' }),
+	schema: SermonSchema,
+});
+
 export const collections = {
-	configSite,
-	configHomepage,
-	configFooter,
-	configTheme,
+	site: configSite,
+	homepage: configHomepage,
+	footer: configFooter,
+	theme: configTheme,
 	pages: pagesCollection,
 	nav: navigationCollection,
+	preachers: preacherCollection,
+	series: seriesCollection,
+	sermons: sermonCollection,
 };

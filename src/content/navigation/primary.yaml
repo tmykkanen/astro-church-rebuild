@@ -26,16 +26,15 @@ navigationEntries:
       - navigationEntryType: feature
         label: Calendar
         featureType: calendar
-        customSlug: go here for calendar!
-        custom: ""
+        customSlug: ""
   - navigationEntryType: feature
     label: Sermons
     featureType: sermons
-    customSlug: this is the sermon page
+    customSlug: ""
   - navigationEntryType: feature
     label: Writings
     featureType: blog
-    customSlug: ""
+    customSlug: writings
   - navigationEntryType: page
     label: What is the Gospel?
     page: what-is-the-gospel

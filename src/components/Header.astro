@@ -4,8 +4,8 @@ import { Image } from 'astro:assets';
 import DesktopNav from '#/components/nav/DesktopNav.astro';
 import MobileNav from '#/components/nav/MobileNav.astro';
 import Text from '#/components/Text.astro';
-import { getConfig } from '#/content/config/getConfig';
-import { getNavigation } from '#/content/navigation/getNavigation';
+import { getConfig } from '#/content/lib/getConfig';
+import { getNavigation } from '#/content/lib/getNavigation';
 import { getImage } from '#/lib/getImage';
 
 const config = await getConfig('site');

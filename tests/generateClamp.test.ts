@@ -2,8 +2,6 @@ import { describe, expect, it } from 'vitest';
 
 import { calculateClamp, generateClamp } from '#/lib/generateClamp';
 
-// TODO: Your font should stop growing around the same viewport width that your layout stops growing.
-
 describe('calculateClamp calculates correct values', () => {
 	it.each([
 		[1, 3, 3.54, 2.74],
