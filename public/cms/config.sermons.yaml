@@ -5,6 +5,9 @@ collections:
     folder: src/content/sermons
     media_folder: "{{media_folder}}/sermons"
     slug: "{{fields.date}}-{{fields.title}}"
+    view_groups:
+      - field: series
+        label: Series
     fields:
       - name: title
         label: Sermon Title
@@ -23,6 +26,7 @@ collections:
       - name: scriptures
         label: Sermon Texts
         label_singular: Sermon Text
+        required: false
         widget: list
         field: { name: reference, label: Scripture Reference, widget: string }
       - name: preacher

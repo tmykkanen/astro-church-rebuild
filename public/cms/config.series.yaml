@@ -12,12 +12,13 @@ collections:
         label: Start Date
         widget: datetime
         format: "YYYY-MM-DD"
-        time_format: false
+        type: date
       - name: image
         label: Series Image
         widget: image
       - name: books
         label: Bible Books
+        required: false
         widget: select
         multiple: true
         options:
