@@ -1,24 +1,23 @@
 ---
 import { Image } from 'astro:assets';
 
-import DesktopNav from '#/components/nav/DesktopNav.astro';
-import MobileNav from '#/components/nav/MobileNav.astro';
-import Text from '#/components/Text.astro';
 import { getConfig } from '#/content/lib/getConfig';
 import { getNavigation } from '#/content/lib/getNavigation';
 import { getImage } from '#/lib/getImage';
+
+import DesktopNav from './nav/desktop/Nav.astro';
+import MobileNav from './nav/mobile/Nav.astro';
+import Text from './Text.astro';
 
 const config = await getConfig('site');
 
 const logo = getImage(config.churchLogo?.image);
 
-const currentPath = Astro.url.pathname;
-
 const primaryNav = await getNavigation('primary');
 ---
 
 <header
-	class:list={["layout-full py-4 h-26", currentPath !== "/" && "bg-muted"]}
+	class:list={["layout-full py-4 h-26", Astro.url.pathname !== "/" && "bg-muted"]}
 >
 	<div class="flex justify-center md:justify-end">
 		<div class="flex w-full items-center gap-4">

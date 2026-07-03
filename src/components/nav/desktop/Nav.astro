@@ -1,0 +1,43 @@
+---
+import {
+	NavigationMenu,
+	NavigationMenuItem,
+	NavigationMenuList,
+	navigationMenuTriggerStyle,
+} from '#/components/ui/navigation-menu';
+import type { NavigationEntry } from '#/content/types/navigation';
+import { generateClamp } from '#/lib/generateClamp';
+import { cn } from '#/lib/utils';
+
+import Group from './Group.astro';
+import Link from './Link.astro';
+
+interface Props {
+	navigationEntries: NavigationEntry[];
+}
+
+const { navigationEntries } = Astro.props;
+
+const fontSize = {
+	'font-size': generateClamp(0.875, 1, {
+		minViewportWidth: 1024,
+		maxViewportWidth: 1440,
+	}),
+};
+---
+
+<NavigationMenu class="max-lg:hidden" aria-label="full-screen">
+	<NavigationMenuList>
+		{navigationEntries.map((entry) => (
+  		<NavigationMenuItem value={entry.label}>
+        {entry.navigationEntryType === 'group' ?
+          <Group>
+            <span slot="label" class="uppercase tracking-widest" style={fontSize}>{entry.label}</span>
+            {entry.children.map((childEntry) => <Link entry={childEntry} style={fontSize}/>)}
+          </Group>
+        : <Link {entry} class={cn(navigationMenuTriggerStyle(), "uppercase tracking-widest")} style={fontSize}/>
+        }
+      </NavigationMenuItem>
+    ))}
+	</NavigationMenuList>
+</NavigationMenu>
