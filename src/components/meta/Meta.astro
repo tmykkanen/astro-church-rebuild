@@ -1,0 +1,46 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { format } from 'date-fns';
+
+import type { HydratedSermon } from '#/content/types/sermons';
+
+import Badge from './Badge.astro';
+
+interface Props {
+	entry: HydratedSermon | CollectionEntry<'blog'>;
+}
+
+const { entry } = Astro.props;
+
+const { date } = entry.data;
+---
+
+<div class="flex flex-wrap gap-2">
+	<Badge>
+		<span class="sm:hidden">
+			{format(date, "MM/dd/yy")}
+		</span>
+		<span class="hidden sm:inline">
+			{format(date, "LLLL do, yyyy")}
+		</span>
+	</Badge>
+
+	<!-- TODO: Add formatting for small screens -->
+	<!-- TODO: Add linking -->
+	{entry.collection === 'sermons' && (
+  <>
+    {entry.data.scriptures?.map((scripture) => (
+      <Badge>{scripture}</Badge>
+    ))}
+
+    <Badge as="a" href='#'>{entry.data.preacher?.data?.firstName}{' '}{entry.data.preacher?.data?.lastName}</Badge>
+
+    <Badge as="a" href='#'>{entry.data.series?.data.title}</Badge>
+  </>
+)}
+
+	{entry.collection === 'blog' &&
+  entry.data.tags.map((tag) => (
+  <Badge>{tag}</Badge>
+  ))}
+</div>
