@@ -16,7 +16,7 @@ collections:
         label: Date Preached
         widget: datetime
         format: "YYYY-MM-DD"
-        time_format: false
+        type: date
       - name: series
         label: Sermon Series
         widget: relation

@@ -1,0 +1,27 @@
+collections:
+  - name: blog
+    label: Blog
+    folder: src/content/blog
+    media_folder: "{{media_folder}}/blog"
+    slug: "{{fields.date}}-{{fields.title}}"
+    fields:
+      - name: title
+        label: Title
+        widget: string
+      - name: date
+        label: Date
+        widget: datetime
+        format: "YYYY-MM-DD"
+        type: date
+      - name: tags
+        label: Post Tags
+        widget: relation
+        collection: config
+        file: blog
+        multiple: true
+        value_field: "{{tags.*.tag}}"
+        display_fields: ["{{tags.*.tag}}"]
+        search_fields: ["{{tags.*.tag}}"]
+      - name: body
+        label: Body
+        widget: markdown

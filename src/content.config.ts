@@ -2,14 +2,14 @@ import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
 
+import { BlogSchema } from './content/schemas/blog';
 import {
 	ConfigFooterSchema,
 	ConfigHomepageSchema,
 	ConfigSiteSchema,
 	ConfigThemeSchema,
-} from '#/content/schemas/config';
-import { NavigationEntrySchema } from '#/content/schemas/navigation';
-
+} from './content/schemas/config';
+import { NavigationEntrySchema } from './content/schemas/navigation';
 import { PreacherSchema } from './content/schemas/preacher';
 import { SeriesSchema } from './content/schemas/series';
 import { SermonSchema } from './content/schemas/sermon';
@@ -34,17 +34,17 @@ const configTheme = defineCollection({
 	schema: ConfigThemeSchema,
 });
 
+const navigationCollection = defineCollection({
+	loader: glob({ pattern: '**/*.yaml', base: './src/content/navigation' }),
+	schema: NavigationEntrySchema,
+});
+
 const pagesCollection = defineCollection({
 	loader: glob({ pattern: '**/*.md', base: './src/content/pages' }),
 	schema: z.object({
 		title: z.string(),
 		type: z.enum(['blog', 'events', 'sermons']).optional(),
 	}),
-});
-
-const navigationCollection = defineCollection({
-	loader: glob({ pattern: '**/*.yaml', base: './src/content/navigation' }),
-	schema: NavigationEntrySchema,
 });
 
 const preacherCollection = defineCollection({
@@ -62,14 +62,20 @@ const sermonCollection = defineCollection({
 	schema: SermonSchema,
 });
 
+const blogCollection = defineCollection({
+	loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
+	schema: BlogSchema,
+});
+
 export const collections = {
 	site: configSite,
 	homepage: configHomepage,
 	footer: configFooter,
 	theme: configTheme,
-	pages: pagesCollection,
 	nav: navigationCollection,
+	pages: pagesCollection,
 	preachers: preacherCollection,
 	series: seriesCollection,
 	sermons: sermonCollection,
+	blog: blogCollection,
 };

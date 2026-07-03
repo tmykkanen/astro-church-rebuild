@@ -143,6 +143,18 @@ collections:
                 label: Link
                 widget: string
                 type: url
+      - name: blog
+        label: Blog
+        file: src/content/config/blog.yaml
+        fields:
+          - name: tags
+            label: Tags
+            widget: list
+            min: 1
+            field:
+              name: tag
+              label: Tag
+              widget: string
       - name: theme
         label: Theme
         file: src/content/config/theme.yaml
