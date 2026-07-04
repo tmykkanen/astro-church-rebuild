@@ -1,0 +1,60 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+import {
+	Combobox,
+	ComboboxContent,
+	ComboboxEmpty,
+	ComboboxInput,
+	ComboboxItem,
+	ComboboxList,
+} from '#/components/ui/combobox';
+
+import FilterWrapper from './FilterWrapper.astro';
+
+type Option =
+	| CollectionEntry<'series'>
+	| CollectionEntry<'preachers'>
+	| CollectionEntry<'blog'>;
+
+interface Props {
+	options: Option[];
+}
+
+const { options } = Astro.props;
+
+const typeMap: Record<Option['collection'], 'preacher' | 'series' | 'blog'> = {
+	series: 'series',
+	preachers: 'preacher',
+	blog: 'blog',
+} as const;
+
+const type = typeMap[options[0].collection];
+---
+
+<FilterWrapper>
+	<span slot="label">
+		{type === 'series' && 'Series'}
+		{type === 'preacher' && 'Preacher'}
+	</span>
+	<Combobox name={type} data-type={type} data-filter class="flex-3/4">
+		<ComboboxInput
+			placeholder="Filter by ..."
+			showClear
+			class="border-none hover:bg-secondary rounded-none rounded-r-sm pl-0 h-full"
+		/>
+		<ComboboxContent class="rounded-sm">
+			<ComboboxList>
+				<ComboboxEmpty>No results found.</ComboboxEmpty>
+				{options.map((entry) => (
+  			  <ComboboxItem value={entry.id}>
+  					{entry.collection === 'preachers' ?
+  				    `${entry.data.firstName} ${entry.data.lastName}`
+  					: entry.data.title
+  					}
+  				</ComboboxItem>
+  			))}
+			</ComboboxList>
+		</ComboboxContent>
+	</Combobox>
+</FilterWrapper>
