@@ -5,8 +5,7 @@ import { getConfig } from '#/content/lib/getConfig';
 import { getNavigation } from '#/content/lib/getNavigation';
 import { getImage } from '#/lib/getImage';
 
-import DesktopNav from './nav/desktop/Nav.astro';
-import MobileNav from './nav/mobile/Nav.astro';
+import { DesktopNav, MobileNav } from './nav';
 import Text from './Text.astro';
 
 const config = await getConfig('site');
