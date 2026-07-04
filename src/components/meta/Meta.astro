@@ -4,19 +4,21 @@ import { format } from 'date-fns';
 
 import type { HydratedSermon } from '#/content/types/sermons';
 
-import Badge from './Badge.astro';
+import Badge, { type Theme } from './Badge.astro';
 
 interface Props {
 	entry: HydratedSermon | CollectionEntry<'blog'>;
+	variant?: 'default' | 'secondary' | 'destructive' | 'outline';
+	theme?: Theme;
 }
 
-const { entry } = Astro.props;
+const { entry, ...props } = Astro.props;
 
 const { date } = entry.data;
 ---
 
 <div class="flex flex-wrap gap-2">
-	<Badge>
+	<Badge {...props}>
 		<span class="sm:hidden">
 			{format(date, "MM/dd/yy")}
 		</span>
@@ -30,17 +32,26 @@ const { date } = entry.data;
 	{entry.collection === 'sermons' && (
   <>
     {entry.data.scriptures?.map((scripture) => (
-      <Badge>{scripture}</Badge>
+      <Badge {...props}>
+        <span class="sm:hidden">
+            {scripture.shortRef}
+        </span>
+        <span class="hidden sm:inline">
+          {scripture.ref}
+        </span>
+      </Badge>
     ))}
 
-    <Badge as="a" href='#'>{entry.data.preacher?.data?.firstName}{' '}{entry.data.preacher?.data?.lastName}</Badge>
+    <Badge as="a" href='#' {...props}>{entry.data.preacher?.data?.firstName}{' '}{entry.data.preacher?.data?.lastName}</Badge>
 
-    <Badge as="a" href='#'>{entry.data.series?.data.title}</Badge>
+    <Badge as="a" href='#' {...props}>
+        {entry.data.series?.data.title}
+    </Badge>
   </>
 )}
 
 	{entry.collection === 'blog' &&
   entry.data.tags.map((tag) => (
-  <Badge>{tag}</Badge>
+  <Badge {...props}>{tag}</Badge>
   ))}
 </div>

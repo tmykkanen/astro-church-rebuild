@@ -3,18 +3,24 @@ import type { HTMLTag } from 'astro/types';
 
 import { Badge } from '#/components/ui/badge';
 
+const themes = {
+	default: 'text-xs',
+	muted:
+		'bg-muted text-muted-foreground text-xs [a]:hover:text-primary-foreground [a]:hover:bg-primary',
+};
+
+export type Theme = keyof typeof themes;
+
 interface Props {
 	as?: HTMLTag;
+	theme?: Theme;
 }
 
-const { as = 'span', ...props } = Astro.props as Props;
+const { as = 'span', theme = 'muted', ...props } = Astro.props as Props;
 ---
 
-<Badge
-	{as}
-	shape="pill"
-	class:list={'bg-muted text-muted-foreground text-xs [a]:hover:text-primary-foreground [a]:hover:bg-primary'}
-	{...props}
->
-	<slot />
+<Badge {as} shape="pill" class:list={[themes[theme], "max-w-full"]} {...props}>
+	<span class="truncate">
+		<slot />
+	</span>
 </Badge>
