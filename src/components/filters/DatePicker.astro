@@ -1,5 +1,10 @@
 ---
-import { Input } from '#/components/ui/input';
+import {
+	InputGroup,
+	InputGroupAddon,
+	InputGroupButton,
+	InputGroupInput,
+} from '#/components/ui/input-group';
 
 import FilterWrapper from './FilterWrapper.astro';
 
@@ -13,37 +18,41 @@ const { type } = Astro.props;
 <FilterWrapper>
 	<span slot="label">{type.charAt(0).toUpperCase() + type.slice(1)}</span>
 
-	<Input
-		id="calendar"
-		type="text"
-		placeholder="Choose date"
-		readonly
+	<InputGroup
 		class="flex-3/4 text-sm border-none hover:bg-secondary rounded-none rounded-r-sm pl-0 h-full"
-		data-filter
+		data-slot={"datepicker"}
 		data-type={type}
-	/>
+	>
+		<InputGroupInput
+			id="calendar"
+			type="text"
+			placeholder="Choose date"
+			readonly
+			data-slot={"datepicker-input"}
+		/>
+		<InputGroupAddon align="inline-end">
+			<InputGroupButton
+				type="button"
+				size="icon-xs"
+				data-slot="datepicker-clear"
+				class="hidden in-data-value:inline-flex"
+			>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					viewBox="0 0 24 24"
+					class="size-3.5 group-data-[size=sm]/input-group:size-3"
+					aria-label="clear input"
+				>
+					<path
+						fill="none"
+						stroke="currentColor"
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="2"
+						d="M18 6L6 18M6 6l12 12"
+					/>
+				</svg>
+			</InputGroupButton>
+		</InputGroupAddon>
+	</InputGroup>
 </FilterWrapper>
-
-<script>
-import { Calendar, type Options } from 'vanilla-calendar-pro';
-
-import 'vanilla-calendar-pro/styles/index.css';
-
-const options: Options = {
-	inputMode: true,
-	positionToInput: 'auto',
-	onChangeToInput(self) {
-		if (!self.context.inputElement) return;
-		if (self.context.selectedDates[0]) {
-			self.context.inputElement.value = self.context.selectedDates[0];
-			// if you want to hide the calendar after picking a date
-			self.hide();
-		} else {
-			self.context.inputElement.value = '';
-		}
-	},
-};
-
-const calendarInput = new Calendar('#calendar', options);
-calendarInput.init();
-</script>

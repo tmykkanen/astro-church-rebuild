@@ -1,9 +1,9 @@
 ---
 import type { GetStaticPaths } from 'astro';
 
+import { SermonCard } from '#/components/cards';
 import { Combobox, DatePicker } from '#/components/filters';
 import { Meta } from '#/components/meta';
-import SermonCard from '#/components/SermonCard.astro';
 import Text from '#/components/Text.astro';
 import { getFeatureNavigationEntry } from '#/content/lib/getNavigation';
 import { getPreachers } from '#/content/lib/getPreachers';
@@ -76,12 +76,14 @@ const latestSermon = allSermons[0];
 </Layout>
 
 <script>
-import { applyFilters } from '#/lib/filter';
 import { createURLState } from '#/lib/urlState';
+import { applyFilters } from '#/scripts/applyFilters';
+import { createDatepicker } from '#/scripts/createDatepicker';
 
-const filters = document.querySelectorAll('[data-filter]');
+// init comboboxes
+const comboboxes = document.querySelectorAll('[data-slot="combobox"]');
 
-filters.forEach((el) => {
+comboboxes.forEach((el) => {
 	if (!(el instanceof HTMLElement)) return;
 	const type = el.dataset.type;
 	if (!type) return;
@@ -98,6 +100,53 @@ filters.forEach((el) => {
 	// UI => URL
 	el.addEventListener('combobox:change', (e) => {
 		state.set(e.detail.value);
+		applyFilters();
+	});
+});
+
+// init datepickers
+const datepickers = document.querySelectorAll<HTMLElement>(
+	'[data-slot="datepicker"]',
+);
+
+datepickers.forEach((el) => {
+	const type = el.dataset.type;
+	const input = el.querySelector<HTMLInputElement>(
+		"[data-slot='datepicker-input']",
+	);
+	const clear = el.querySelector<HTMLButtonElement>(
+		"[data-slot='datepicker-clear']",
+	);
+
+	if (!input || !type) return;
+
+	const state = createURLState(type);
+	const calendar = createDatepicker(input);
+	calendar.init();
+
+	// URL => UI
+	state.subscribe((value) => {
+		input.value = value ?? '';
+		if (value) {
+			el.dataset.value = value;
+		} else {
+			delete el.dataset.value;
+		}
+		calendar.set({ selectedDates: [value ?? ''] });
+	});
+
+	// UI => URL
+	el.addEventListener('datepicker:change', (e) => {
+		state.set(e.detail.value);
+		el.dataset.value = e.detail.value;
+		applyFilters();
+	});
+
+	clear?.addEventListener('click', () => {
+		state.set('');
+		calendar.set({ selectedDates: [] });
+		input.value = '';
+		delete el.dataset.value;
 		applyFilters();
 	});
 });

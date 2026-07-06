@@ -1,12 +1,11 @@
 ---
 import { Image } from 'astro:assets';
 
+import { Meta } from '#/components/meta';
+import Text from '#/components/Text.astro';
 // import img from '#/assets/series/Advent 2025 Sermon Series graphic sq.webp';
 import type { HydratedSermon } from '#/content/types/sermons';
 import { getImage } from '#/lib/getImage';
-
-import { Meta } from './meta';
-import Text from './Text.astro';
 
 interface Props {
 	entry: HydratedSermon;
@@ -25,7 +24,7 @@ const scriptures = sermon.scriptures?.map((scripture) => scripture.ref);
 	class="bg-muted rounded-sm shadow-sm flex max-h-48 w-full flex-row"
 	data-series={sermon.series?.id}
 	data-preacher={sermon.preacher?.id}
-	data-date={sermon.date}
+	data-date={sermon.date.getTime()}
 	data-scripture={JSON.stringify(scriptures)}
 	data-sermon-card
 >

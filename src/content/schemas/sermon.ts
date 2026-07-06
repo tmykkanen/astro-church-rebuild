@@ -1,8 +1,8 @@
 import { reference } from 'astro:content';
 import { z } from 'astro/zod';
 
-import { parseScriptureRef } from '#/lib/parseScripture';
-import type { ParseScriptureRefSuccess } from '#/lib/types';
+import type { ParseScriptureRefSuccess } from '#/lib/scriptureParsing';
+import { parseScriptureRef } from '#/lib/scriptureParsing/parse';
 
 // TODO: Add parsing for verse reference
 // TODO: Double check date parsing

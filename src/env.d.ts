@@ -7,6 +7,10 @@ declare global {
 		'combobox:input-change': CustomEvent<{
 			inputValue: string;
 		}>;
+
+		'datepicker:change': CustomEvent<{
+			value: string;
+		}>;
 	}
 }
 

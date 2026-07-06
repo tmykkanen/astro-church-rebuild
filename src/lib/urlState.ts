@@ -1,6 +1,12 @@
 type Callback<T> = (value: T | null) => void;
 
-export const createURLState = (key: string) => {
+export type UrlState = {
+	get: () => string | null;
+	set: (value: string) => void;
+	subscribe: (callback: Callback<string>) => () => void;
+};
+
+export const createURLState = (key: string): UrlState => {
 	const get = () => {
 		const params = new URLSearchParams(window.location.search);
 		return params.get(key);

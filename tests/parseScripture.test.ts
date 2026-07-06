@@ -1,7 +1,7 @@
 import brf_parser from 'bible-reference-formatter';
 import { describe, expect, it } from 'vitest';
 
-import { parser, parseScriptureRef } from '#/lib/parseScripture';
+import { parser, parseScriptureRef } from '#/lib/scriptureParsing/parse';
 
 describe('parseScriptureRef function works correctly', () => {
 	it.each([
