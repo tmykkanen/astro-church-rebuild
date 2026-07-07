@@ -5,6 +5,6 @@ series: thessalonians-gospel-encouragement-for-everyday-life
 scriptures:
   - 1 Thessalonians
 preacher: tyler-mykkanen
-mediaURL: ''
+mediaURL: 'https://open.spotify.com/episode/3U3c0WMyKxlB6b2xtD8GRo'
 bulletinURL: ''
 ---

@@ -1,0 +1,54 @@
+---
+import { render } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+
+import { Embed } from '#/components/embed';
+import { Meta } from '#/components/meta';
+import Text from '#/components/Text.astro';
+import { getFeatureNavigationEntry } from '#/content/lib/getNavigation';
+import { getSermons } from '#/content/lib/getSermons';
+import Layout from '#/layouts/Layout.astro';
+
+export const getStaticPaths = (async () => {
+	const sermonNavigationEntry = await getFeatureNavigationEntry('sermons');
+	const allSermons = await getSermons();
+	const baseUrl =
+		sermonNavigationEntry?.customSlug || sermonNavigationEntry?.featureType;
+
+	return sermonNavigationEntry
+		? allSermons.map((sermon) => ({
+				params: {
+					entry: `${baseUrl}/${sermon.id}`,
+				},
+				props: { sermon },
+			}))
+		: [];
+}) satisfies GetStaticPaths;
+
+const { sermon } = Astro.props;
+
+const { title, bulletinURL } = sermon.data;
+
+const { Content: SermonContent } = await render(sermon);
+const { Content: PreacherContent } = await render(sermon.preacher);
+---
+
+<Layout pageTitle={title}>
+	<main class="layout-sermon gap-4 py-8">
+		<div>
+			<Text as="h1" variant="sermonHeading">{title}</Text>
+			<Meta entry={sermon} />
+		</div>
+		<div class="h-90">
+			<Embed url={sermon.data.mediaURL ?? ''} />
+		</div>
+		<div>
+			{sermon.rendered?.html ? <SermonContent /> : <PreacherContent />}
+			{bulletinURL && (
+          <a href={bulletinURL} target="_blank" rel="noopener noreferrer">
+            View the Bulletin
+          </a>
+        )}
+		</div>
+	</main>
+</Layout>

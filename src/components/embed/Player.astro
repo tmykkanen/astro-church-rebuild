@@ -1,0 +1,51 @@
+---
+import { Skeleton } from '#/components/ui/skeleton';
+
+import { parseEmbed } from './parser';
+import { providers } from './providers';
+
+interface Props {
+	url: string;
+	isCompact?: boolean;
+}
+
+const { url, isCompact = false } = Astro.props;
+
+const embed = parseEmbed(url);
+if (!embed) return;
+const src = providers[embed.type].getUrl(embed.uri, isCompact);
+---
+
+<div class="relative h-full w-full" data-loading={true} data-embed-container>
+	<Skeleton
+		class="h-full w-full absolute inset-0 opacity-0 in-data-loading:opacity-100 transition-opacity duration-200 -z-10"
+	/>
+
+	<iframe
+		title="sermon audio/video embed"
+		src={src}
+		allow="
+			accelerometer;
+			autoplay;
+			clipboard-write;
+			encrypted-media;
+			gyroscope;
+			picture-in-picture;
+			web-share;
+		"
+		allowfullscreen
+		class="in-data-loading:opacity-0 transition-opacity duration-200 h-full w-full"
+		data-loading
+	> </iframe>
+</div>
+
+<script>
+const container = document.querySelector<HTMLElement>('[data-embed-container]');
+const iframe = document.querySelector<HTMLIFrameElement>('iframe');
+
+if (container && iframe) {
+	iframe.addEventListener('load', () => {
+		delete container.dataset.loading;
+	});
+}
+</script>

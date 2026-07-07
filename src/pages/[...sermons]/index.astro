@@ -1,8 +1,9 @@
 ---
 import type { GetStaticPaths } from 'astro';
 
-import { SermonCard } from '#/components/cards';
-import { Combobox, DatePicker } from '#/components/filters';
+import { SermonCard } from '#/components/card';
+import { Embed } from '#/components/embed';
+import { Combobox, DatePicker } from '#/components/filter';
 import { Meta } from '#/components/meta';
 import Text from '#/components/Text.astro';
 import { getFeatureNavigationEntry } from '#/content/lib/getNavigation';
@@ -18,9 +19,7 @@ export const getStaticPaths = (async () => {
 		? [
 				{
 					params: {
-						sermons:
-							sermonNavigationEntry.customSlug ||
-							sermonNavigationEntry.featureType,
+						sermons: sermonNavigationEntry.customSlug || 'sermons',
 					},
 					props: {
 						sermonNavigationEntry,
@@ -36,11 +35,11 @@ const allSermons = await getSermons();
 const allSeries = await getSeries();
 const allPreachers = await getPreachers();
 const latestSermon = allSermons[0];
+
+const baseUrl = sermonNavigationEntry.customSlug || 'sermons';
 ---
 
-<Layout
-	pageTitle={sermonNavigationEntry.label ?? sermonNavigationEntry.featureType}
->
+<Layout pageTitle={sermonNavigationEntry.label ?? 'Sermons'}>
 	<main class="layout-base gap-8 py-8">
 		<h1 class="sr-only">Sermons</h1>
 
@@ -51,12 +50,12 @@ const latestSermon = allSermons[0];
 				as="a"
 				variant="subheading"
 				class="hover:underline hover:decoration-primary underline-offset-4"
-				href={'#'}
+				href={`${baseUrl}/${latestSermon.id}`}
 				>{latestSermon.data.title}</Text
 			>
 			<Meta entry={latestSermon} />
-			<div class="h-38 bg-primary text-primary-foreground">
-				Sermon Media Embed
+			<div class="h-38">
+				<Embed url={latestSermon.data.mediaURL ?? ''} isCompact />
 			</div>
 		</section>
 

@@ -1,4 +1,4 @@
-import { isSermonCardElement } from '#/components/cards';
+import { isSermonCardElement } from '#/components/card';
 import { getURLState } from '#/lib/urlState';
 
 export const applyFilters = () => {

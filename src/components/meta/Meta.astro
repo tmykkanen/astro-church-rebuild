@@ -2,6 +2,7 @@
 import type { CollectionEntry } from 'astro:content';
 import { format } from 'date-fns';
 
+import { getFeatureNavigationEntry } from '#/content/lib/getNavigation';
 import type { HydratedSermon } from '#/content/types/sermons';
 
 import Badge, { type Theme } from './Badge.astro';
@@ -11,6 +12,11 @@ interface Props {
 	variant?: 'default' | 'secondary' | 'destructive' | 'outline';
 	theme?: Theme;
 }
+
+const sermonNavigationEntry = await getFeatureNavigationEntry('sermons');
+
+const sermonBaseUrl =
+	sermonNavigationEntry?.customSlug || sermonNavigationEntry?.featureType;
 
 const { entry, ...props } = Astro.props;
 
@@ -30,6 +36,7 @@ const { date } = entry.data;
 	<!-- TODO: Add formatting for small screens -->
 	<!-- TODO: Add linking -->
 	{entry.collection === 'sermons' && (
+
   <>
     {entry.data.scriptures?.map((scripture) => (
       <Badge {...props}>
@@ -42,10 +49,10 @@ const { date } = entry.data;
       </Badge>
     ))}
 
-    <Badge as="a" href='#' {...props}>{entry.data.preacher?.data?.firstName}{' '}{entry.data.preacher?.data?.lastName}</Badge>
+    <Badge as="a" href={`/${sermonBaseUrl}?preacher=${entry.data.preacher.id}`} {...props}>{entry.preacher.data.firstName}{' '}{entry.preacher.data.lastName}</Badge>
 
     <Badge as="a" href='#' {...props}>
-        {entry.data.series?.data.title}
+        {entry.series.data.title}
     </Badge>
   </>
 )}
