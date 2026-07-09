@@ -4,12 +4,23 @@ import { Settings2, Undo2 } from '@lucide/astro';
 import { Button } from '#/components/ui/button';
 ---
 
-<Button variant={'link'} class={'text-muted-foreground'} data-filters-toggle>
-	<Settings2 />
-	Show Filters
-</Button>
+<div class="flex content-between justify-between self-end">
+	<Button
+		variant={'link'}
+		class={'text-primary group-data-filters-hidden:text-muted-foreground hover:decoration-primary'}
+		data-filters-toggle
+	>
+		<Settings2 />
+		<span class="hidden group-data-filters-hidden:flex"> Show Filters </span>
+		<span class="group-data-filters-hidden:hidden"> Hide Filters </span>
+	</Button>
 
-<Button variant={'link'} class={'text-muted-foreground'} data-filters-reset>
-	Reset Filters
-	<Undo2 />
-</Button>
+	<Button
+		variant={'link'}
+		class={'text-primary hidden group-data-filters-active:flex hover:decoration-primary'}
+		data-filters-reset
+	>
+		Reset Filters
+		<Undo2 />
+	</Button>
+</div>

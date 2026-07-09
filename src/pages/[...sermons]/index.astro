@@ -63,14 +63,17 @@ const baseUrl = sermonNavigationEntry.customSlug || 'sermons';
 
 		<section class="flex flex-col gap-4">
 			<Text as="h2" variant="heading">All Sermons</Text>
-			<div class="flex flex-col gap-4">
-				<div class="flex">
+			<div
+				class="flex flex-col gap-4 group"
+				data-filters-container
+				data-filters-hidden
+			>
+				<div class="flex flex-col gap-4 md:flex-row">
 					<Search />
 					<Controls />
 				</div>
 				<div
-					class="flex flex-col xl:grid xl:grid-cols-2 gap-4 mb-4 hidden xl:hidden"
-					data-filters-container
+					class="flex flex-col xl:grid xl:grid-cols-2 gap-4 mb-4 group-data-filters-hidden:hidden"
 				>
 					<Combobox options={allSeries} />
 					<Combobox options={allPreachers} />
@@ -96,14 +99,20 @@ import {
 
 const cards = document.querySelectorAll<HTMLElement>('[data-sermon-card]');
 
+const filtersContainer = document.querySelector<HTMLDivElement>(
+	'[data-filters-container]',
+);
+
 initComboboxes();
 initDatepickers();
 initSearch(cards);
 initControls();
 
-applyFilters(cards);
-
 window.addEventListener('urlstate:change', () => {
-	applyFilters(cards);
+	const filtersActive = applyFilters(cards);
+
+	filtersContainer?.toggleAttribute('data-filters-active', filtersActive);
 });
+
+window.dispatchEvent(new Event('urlstate:change'));
 </script>

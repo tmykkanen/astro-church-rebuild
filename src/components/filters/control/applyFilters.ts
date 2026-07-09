@@ -2,8 +2,12 @@ import { isSermonCardElement } from '#/components/card';
 import { getMatches } from '#/components/filters/';
 import { getURLState } from '#/lib/urlState';
 
-export const applyFilters = (cards: NodeListOf<HTMLElement>) => {
+export const applyFilters = (cards: NodeListOf<HTMLElement>): boolean => {
 	const { series, preacher, tags, from, to, query } = getURLState();
+
+	const filtersActive = Boolean(
+		series || preacher || tags || from || to || query,
+	);
 
 	const searchResults = query ? getMatches(query) : null;
 
@@ -16,11 +20,11 @@ export const applyFilters = (cards: NodeListOf<HTMLElement>) => {
 		const matchesFrom =
 			!from ||
 			(card.dataset.date &&
-				Number(card.dataset.date) >= new Date(from ?? '').getTime());
+				Number(card.dataset.date) >= new Date(from).getTime());
 		const matchesTo =
 			!to ||
 			(card.dataset.date &&
-				Number(card.dataset.date) <= new Date(to ?? '').getTime());
+				Number(card.dataset.date) <= new Date(to).getTime());
 
 		const matchesQuery = !query || searchResults?.has(card);
 
@@ -33,4 +37,6 @@ export const applyFilters = (cards: NodeListOf<HTMLElement>) => {
 			matchesQuery
 		);
 	});
+
+	return filtersActive;
 };

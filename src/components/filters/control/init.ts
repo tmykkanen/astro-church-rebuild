@@ -13,12 +13,14 @@ export const init = () => {
 		'[data-filters-reset]',
 	);
 
-	filtersToggle?.addEventListener('click', () => {
-		filtersContainer?.classList.toggle('hidden');
-		filtersContainer?.classList.toggle('xl:hidden');
+	if (!filtersContainer || !filtersToggle || !filtersReset) return;
+
+	filtersToggle.addEventListener('click', () => {
+		filtersContainer.toggleAttribute('data-filters-hidden');
 	});
 
-	filtersReset?.addEventListener('click', () => {
+	filtersReset.addEventListener('click', () => {
 		resetURLState();
+		filtersContainer.toggleAttribute('data-filters-hidden', true);
 	});
 };
