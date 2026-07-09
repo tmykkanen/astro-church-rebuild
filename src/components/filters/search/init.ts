@@ -5,14 +5,19 @@ import { createURLState } from '#/lib/urlState';
 
 export let fuse: Fuse<SermonCardData> | undefined;
 
-export const init = (cards: NodeListOf<HTMLElement>) => {
-	const cardData: SermonCardData[] = [...cards].map((card) => ({
+export const createCardData = (
+	cards: NodeListOf<HTMLElement>,
+): SermonCardData[] =>
+	[...cards].map((card) => ({
 		element: card,
 		title: card.dataset.title ?? '',
 		series: card.dataset.series ?? '',
 		preacher: card.dataset.preacher ?? '',
 		scriptures: JSON.parse(card.dataset.scriptures ?? '[]'),
 	}));
+
+export const init = (cards: NodeListOf<HTMLElement>) => {
+	const cardData = createCardData(cards);
 
 	fuse = new Fuse(cardData, {
 		includeScore: true,

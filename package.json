@@ -14,7 +14,8 @@
 		"prepare": "husky",
 		"predev": "node scripts/generate-theme-css.js",
 		"prebuild": "node scripts/generate-theme-css.js",
-		"test": "vitest run"
+		"test:watch": "vitest",
+		"test:run": "vitest run"
 	},
 	"dependencies": {
 		"@astrojs/check": "^0.9.9",
@@ -44,6 +45,7 @@
 	"devDependencies": {
 		"@biomejs/biome": "2.5.0",
 		"@types/node": "^25.9.3",
+		"happy-dom": "^20.10.6",
 		"husky": "^9.1.7",
 		"lint-staged": "^17.0.8",
 		"shadcn": "^4.11.0",
