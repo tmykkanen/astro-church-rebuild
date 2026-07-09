@@ -8,6 +8,6 @@ churchLogo:
 socials:
   - name: Youtube
     icon: youtube
-    link: https://www.youtube.com/
-    tooltip: ""
+    link: https://www.youtube.com
+    tooltip: ''
     showInFooter: true

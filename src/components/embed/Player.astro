@@ -1,21 +1,37 @@
 ---
+import { CircleX } from '@lucide/astro';
+import { format } from 'date-fns';
+
+import Text from '#/components/Text.astro';
 import { Skeleton } from '#/components/ui/skeleton';
+import { getConfig } from '#/content/lib/getConfig';
+import type { HydratedSermon } from '#/content/types/sermons';
 
 import { parseEmbed } from './parser';
 import { providers } from './providers';
 
 interface Props {
-	url: string;
+	entry: HydratedSermon;
 	isCompact?: boolean;
 }
 
-const { url, isCompact = false } = Astro.props;
+const { entry, isCompact = false } = Astro.props;
 
-const embed = parseEmbed(url);
-if (!embed) return;
-const src = providers[embed.type].getUrl(embed.uri, isCompact);
+const { mediaURL, date } = entry.data;
+
+const embed = parseEmbed(mediaURL ?? '');
+
+let src = '';
+if (embed) src = providers[embed.type].getUrl(embed.uri, isCompact);
+
+const { socials } = await getConfig('site');
+
+const youtubeLink = socials
+	?.filter((entry) => entry.link.includes('youtube'))
+	.map((entry) => entry.link)[0];
 ---
 
+{embed ? (
 <div class="relative h-full w-full" data-loading={true} data-embed-container>
 	<Skeleton
 		class="h-full w-full absolute inset-0 opacity-0 in-data-loading:opacity-100 transition-opacity duration-200 -z-10"
@@ -38,6 +54,26 @@ const src = providers[embed.type].getUrl(embed.uri, isCompact);
 		data-loading
 	> </iframe>
 </div>
+)
+
+: <div class="relative h-full w-full border-muted border-2 rounded-sm flex flex-col items-center justify-center">
+  <Text as='h3' variant='heading' class="text-primary flex items-center gap-2">
+    <CircleX class="h-5 w-5 md:h-6 md:w-6" aria-hidden="true" />
+    Sermon media not found.
+  </Text>
+  {youtubeLink &&
+    (<Text
+      as='a'
+      variant='link'
+      href={`${youtubeLink}/search?query=${format(date, "LLL dd, yyyy")}`}
+      target={'_blank'}
+      rel={'noopener noreferrer'}
+      aria-label="link to search youtube channel"
+      class='no-underline! hover:underline!'
+    >Click here to search our YouTube channel.</Text>)
+  }
+
+</div>}
 
 <script>
 const container = document.querySelector<HTMLElement>('[data-embed-container]');

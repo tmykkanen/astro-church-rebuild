@@ -40,14 +40,14 @@ const { Content: PreacherContent } = await render(sermon.preacher);
 			<Meta entry={sermon} />
 		</div>
 		<div class="h-90">
-			<Embed url={sermon.data.mediaURL ?? ''} />
+			<Embed entry={sermon} />
 		</div>
-		<div>
+		<div class="text-muted-foreground flex flex-col gap-4">
 			{sermon.rendered?.html ? <SermonContent /> : <PreacherContent />}
 			{bulletinURL && (
-          <a href={bulletinURL} target="_blank" rel="noopener noreferrer">
+          <Text as='a' href={bulletinURL} target="_blank" rel="noopener noreferrer" variant='link'>
             View the Bulletin
-          </a>
+          </Text>
         )}
 		</div>
 	</main>

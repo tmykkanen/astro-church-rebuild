@@ -57,7 +57,7 @@ const baseUrl = sermonNavigationEntry.customSlug || 'sermons';
 			>
 			<Meta entry={latestSermon} />
 			<div class="h-38">
-				<Embed url={latestSermon.data.mediaURL ?? ''} isCompact />
+				<Embed entry={latestSermon} isCompact />
 			</div>
 		</section>
 
