@@ -1,12 +1,11 @@
 ---
+import FilterWrapper from '#/components/filters/FilterWrapper.astro';
 import {
 	InputGroup,
 	InputGroupAddon,
 	InputGroupButton,
 	InputGroupInput,
 } from '#/components/ui/input-group';
-
-import FilterWrapper from './FilterWrapper.astro';
 
 interface Props {
 	type: 'from' | 'to';
@@ -21,10 +20,9 @@ const { type } = Astro.props;
 	<InputGroup
 		class="flex-3/4 text-sm border-none hover:bg-secondary rounded-none rounded-r-sm pl-0 h-full"
 		data-slot={"datepicker"}
-		data-type={type}
+		data-filter-type={type}
 	>
 		<InputGroupInput
-			id="calendar"
 			type="text"
 			placeholder="Choose date"
 			readonly

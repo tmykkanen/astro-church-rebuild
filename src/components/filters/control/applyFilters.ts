@@ -1,10 +1,11 @@
 import { isSermonCardElement } from '#/components/card';
+import { getMatches } from '#/components/filters/';
 import { getURLState } from '#/lib/urlState';
 
-export const applyFilters = () => {
-	const { series, preacher, tags, from, to } = getURLState();
+export const applyFilters = (cards: NodeListOf<HTMLElement>) => {
+	const { series, preacher, tags, from, to, query } = getURLState();
 
-	const cards = document.querySelectorAll('[data-sermon-card]');
+	const searchResults = query ? getMatches(query) : null;
 
 	cards.forEach((card) => {
 		if (!isSermonCardElement(card)) return;
@@ -21,12 +22,15 @@ export const applyFilters = () => {
 			(card.dataset.date &&
 				Number(card.dataset.date) <= new Date(to ?? '').getTime());
 
+		const matchesQuery = !query || searchResults?.has(card);
+
 		card.hidden = !(
 			matchesSeries &&
 			matchesPreacher &&
 			matchesTags &&
 			matchesFrom &&
-			matchesTo
+			matchesTo &&
+			matchesQuery
 		);
 	});
 };

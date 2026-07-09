@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 
+import FilterWrapper from '#/components/filters/FilterWrapper.astro';
 import {
 	Combobox,
 	ComboboxContent,
@@ -9,8 +10,6 @@ import {
 	ComboboxItem,
 	ComboboxList,
 } from '#/components/ui/combobox';
-
-import FilterWrapper from './FilterWrapper.astro';
 
 type Option =
 	| CollectionEntry<'series'>
@@ -37,7 +36,7 @@ const type = typeMap[options[0].collection];
 		{type === 'series' && 'Series'}
 		{type === 'preacher' && 'Preacher'}
 	</span>
-	<Combobox name={type} data-type={type} class="flex-3/4">
+	<Combobox name={type} data-filter-type={type} class="flex-3/4">
 		<ComboboxInput
 			placeholder="Filter by ..."
 			showClear

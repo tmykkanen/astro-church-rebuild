@@ -1,0 +1,15 @@
+---
+import { Settings2, Undo2 } from '@lucide/astro';
+
+import { Button } from '#/components/ui/button';
+---
+
+<Button variant={'link'} class={'text-muted-foreground'} data-filters-toggle>
+	<Settings2 />
+	Show Filters
+</Button>
+
+<Button variant={'link'} class={'text-muted-foreground'} data-filters-reset>
+	Reset Filters
+	<Undo2 />
+</Button>

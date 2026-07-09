@@ -1,0 +1,19 @@
+---
+import { SearchIcon } from '@lucide/astro';
+
+import {
+	InputGroup,
+	InputGroupAddon,
+	InputGroupInput,
+} from '#/components/ui/input-group';
+---
+
+<InputGroup
+	class="text-sm border-accent bg-muted hover:bg-secondary rounded-sm"
+	data-slot="search"
+>
+	<InputGroupInput placeholder="Search sermons..." data-slot="search-input" />
+	<InputGroupAddon>
+		<SearchIcon />
+	</InputGroupAddon>
+</InputGroup>

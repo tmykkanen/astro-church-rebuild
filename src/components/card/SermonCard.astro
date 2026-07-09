@@ -20,7 +20,9 @@ const {
 
 const img = getImage(series.image);
 
-const scriptures = sermon.scriptures?.map((scripture) => scripture.ref);
+const scriptures = sermon.scriptures?.flatMap(
+	(scripture) => scripture.expandedRef,
+);
 
 const sermonNavigationEntry = await getFeatureNavigationEntry('sermons');
 
@@ -29,10 +31,11 @@ const baseUrl = sermonNavigationEntry?.customSlug || 'sermons';
 
 <div
 	class="bg-muted rounded-sm shadow-sm flex max-h-48 w-full flex-row"
+	data-title={sermon.title}
 	data-series={sermon.series?.id}
 	data-preacher={sermon.preacher?.id}
 	data-date={sermon.date.getTime()}
-	data-scripture={JSON.stringify(scriptures)}
+	data-scriptures={JSON.stringify(scriptures)}
 	data-sermon-card
 >
 	<!-- TODO: Add linking -->

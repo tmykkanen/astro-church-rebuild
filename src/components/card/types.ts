@@ -13,3 +13,11 @@ export const isSermonCardElement = (
 ): element is SermonCardElement => {
 	return element instanceof HTMLElement && 'sermonCard' in element.dataset;
 };
+
+export type SermonCardData = {
+	element: HTMLElement;
+	title: string;
+	series: string;
+	preacher: string;
+	scriptures: string[];
+};

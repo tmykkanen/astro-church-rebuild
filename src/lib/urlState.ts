@@ -1,12 +1,11 @@
 type Callback<T> = (value: T | null) => void;
 
-export type UrlState = {
-	get: () => string | null;
-	set: (value: string) => void;
-	subscribe: (callback: Callback<string>) => () => void;
+type BindOptions = {
+	updateUI: (value: string | null) => void;
+	updateState: (set: (value: string) => void) => void;
 };
 
-export const createURLState = (key: string): UrlState => {
+export const createURLState = (key: string) => {
 	const get = () => {
 		const params = new URLSearchParams(window.location.search);
 		return params.get(key);
@@ -19,6 +18,8 @@ export const createURLState = (key: string): UrlState => {
 		else url.searchParams.delete(key);
 
 		history.replaceState({}, '', url);
+
+		window.dispatchEvent(new Event('urlstate:change'));
 	};
 
 	const subscribe = (callback: Callback<string>) => {
@@ -28,13 +29,23 @@ export const createURLState = (key: string): UrlState => {
 		const handler = () => callback(get());
 
 		window.addEventListener('popstate', handler);
+		window.addEventListener('urlstate:change', handler);
 
 		return () => {
 			window.removeEventListener('popstate', handler);
+			window.removeEventListener('urlstate:change', handler);
 		};
 	};
 
-	return { get, set, subscribe };
+	const bind = ({ updateUI, updateState }: BindOptions) => {
+		const unsubscribe = subscribe(updateUI);
+		updateState(set);
+
+		// return cleanup function
+		return unsubscribe;
+	};
+
+	return { bind };
 };
 
 export const getURLState = () => {
@@ -46,5 +57,11 @@ export const getURLState = () => {
 		from: params.get('from'),
 		to: params.get('to'),
 		tags: params.get('tags'),
+		query: params.get('q'),
 	};
+};
+
+export const resetURLState = () => {
+	history.replaceState({}, '', window.location.pathname);
+	window.dispatchEvent(new Event('urlstate:change'));
 };
