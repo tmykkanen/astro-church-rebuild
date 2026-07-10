@@ -26,15 +26,15 @@ navigationEntries:
       - navigationEntryType: feature
         label: Calendar
         featureType: calendar
-        customSlug: ""
+        customSlug: ''
   - navigationEntryType: feature
     label: Sermons
     featureType: sermons
-    customSlug: ""
+    customSlug: ''
   - navigationEntryType: feature
     label: Writings
     featureType: blog
     customSlug: writings
-  - navigationEntryType: page
+  - navigationEntryType: external
     label: What is the Gospel?
-    page: what-is-the-gospel
+    url: https://www.crossway.org/articles/what-is-the-gospel-2/?srsltid=AfmBOorrN1VDacJAB64EtPaihKL5kvEIeuyGC6sWQRPWey8KMNQMk753

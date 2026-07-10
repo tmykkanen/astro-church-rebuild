@@ -3,6 +3,7 @@ collections:
     label: Pages
     label_singular: Page
     folder: src/content/pages
+    media_folder: "{{media_folder}}/pages"
     fields:
       - name: title
         label: Title

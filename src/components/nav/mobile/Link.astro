@@ -1,17 +1,19 @@
 ---
+import type { Variant } from '#/components/Text.astro';
+import Text from '#/components/Text.astro';
 import type {
 	NavigationExternalEntry,
 	NavigationFeatureEntry,
 	NavigationPageEntry,
 } from '#/content/types/navigation';
-import { cn } from '#/lib/utils';
 
 interface Props {
 	class?: string;
 	entry: NavigationPageEntry | NavigationExternalEntry | NavigationFeatureEntry;
+	variant?: Variant;
 }
 
-const { class: className = '', entry } = Astro.props;
+const { class: className = '', entry, variant = 'navTop' } = Astro.props;
 
 const href =
 	entry.navigationEntryType === 'external'
@@ -22,9 +24,5 @@ const href =
 ---
 
 <li>
-	<a
-		href={href}
-		class={cn(className, "hover:underline hover:decoration-primary underline-offset-4")}
-		>{entry.label}</a
-	>
+	<Text as="a" {href} class={className} {variant}>{entry.label}</Text>
 </li>

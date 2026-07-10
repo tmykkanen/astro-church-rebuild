@@ -8,6 +8,20 @@ const variants = {
 		class: '',
 		style: {},
 	},
+	navTop: {
+		class:
+			'hover:underline hover:decoration-primary underline-offset-4 text-xl font-bold text-primary uppercase',
+		style: {
+			'font-size': generateClamp(1.875, 3, { maxViewportWidth: 1024 }),
+		},
+	},
+	navChild: {
+		class:
+			'hover:underline hover:decoration-primary underline-offset-4 text-muted-foreground font-bold uppercase text-xl',
+		style: {
+			'font-size': generateClamp(1, 1.25, { maxViewportWidth: 1024 }),
+		},
+	},
 	link: {
 		class: 'hover:decoration-primary hover:text-foreground underline',
 		style: {},
@@ -44,7 +58,7 @@ const variants = {
 	},
 };
 
-type Variant = keyof typeof variants;
+export type Variant = keyof typeof variants;
 
 type Props<Tag extends HTMLTag> = Polymorphic<{
 	as: Tag;

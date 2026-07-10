@@ -1,4 +1,5 @@
 ---
+import Text from '#/components/Text.astro';
 import type { NavigationEntry } from '#/content/types/navigation';
 
 import Control from './Control.astro';
@@ -12,23 +13,25 @@ interface Props {
 const { navigationEntries } = Astro.props;
 ---
 
+<!-- TODO: Adjust text sizing on mobile nav -->
+
 <!-- use classes group and group-has-checked to control behavior -->
 <nav class="lg:hidden group">
 	<Control />
 
 	<div
-		class="bg-background fixed inset-0 z-40 flex h-full translate-x-full flex-col items-center justify-center transition-all duration-200 ease-out group-has-checked:translate-none"
+		class="bg-background fixed inset-0 z-40 flex h-full translate-x-full flex-col items-center justify-center transition-all duration-200 ease-out group-has-checked:translate-none overflow-auto"
 	>
 		<ul class="flex flex-col gap-8">
 			{navigationEntries.map((entry) => (
 			entry.navigationEntryType === 'group'
 			  ? <Group>
-					  <span slot="label">{entry.label}</span>
+					  <Text as='span' slot={'label'} variant='navTop'>{entry.label}</Text>
 							{entry.children.map((childEntry) => (
-					    <Link entry={childEntry} class={"text-muted-foreground font-bold uppercase text-xl"} />
+					    <Link entry={childEntry} variant='navChild' />
 							))}
 					</Group>
-				:  <Link entry={entry} class={"text-5xl font-bold text-primary uppercase"}/>
+				:  <Link entry={entry}/>
 			))}
 		</ul>
 	</div>

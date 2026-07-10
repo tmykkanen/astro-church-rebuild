@@ -1,0 +1,39 @@
+---
+import { getEntry, render } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+
+import { getPageNavigationEntries } from '#/content/lib/getNavigation';
+import Layout from '#/layouts/Layout.astro';
+
+export const getStaticPaths = (async () => {
+	const pageNavigationEntries = await getPageNavigationEntries();
+
+	const pagesEntries = await Promise.all(
+		pageNavigationEntries.map((entry) => getEntry('pages', entry.page.id)),
+	);
+
+	const pages = pagesEntries.filter(
+		(page): page is NonNullable<typeof page> => page !== undefined,
+	);
+
+	console.log(pages);
+
+	return pages.map((page) => ({
+		params: { pages: page.id },
+		props: { page },
+	}));
+}) satisfies GetStaticPaths;
+
+const { page } = Astro.props;
+const { Content } = await render(page);
+---
+
+<Layout pageTitle={page.data.title}>
+	<main class="layout-base min-h-120 justify-items-center py-8">
+		<div
+			class="prose prose-custom prose-a:hover:decoration-primary prose-a:hover:text-foreground lg:max-w-[80ch]"
+		>
+			<Content />
+		</div>
+	</main>
+</Layout>
