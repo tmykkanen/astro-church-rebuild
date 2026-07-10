@@ -44,6 +44,7 @@
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.5.0",
+		"@tailwindcss/typography": "^0.5.20",
 		"@types/node": "^25.9.3",
 		"happy-dom": "^20.10.6",
 		"husky": "^9.1.7",
