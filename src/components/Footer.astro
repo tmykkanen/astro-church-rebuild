@@ -12,7 +12,7 @@ const footerConfig = await getConfig('footer');
 	<section class="flex flex-col gap-8">
 		{footerConfig.sections?.map((section) => (
 		<div class="flex flex-col gap-2">
-      <Text as="h2" variant='heading'>{section.heading}</Text>
+      <Text as="h2" variant='heading-3'>{section.heading}</Text>
       <span set:html={section.content} />
 		</div>
     ))}

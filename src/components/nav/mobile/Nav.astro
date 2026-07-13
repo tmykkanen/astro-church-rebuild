@@ -26,12 +26,12 @@ const { navigationEntries } = Astro.props;
 			{navigationEntries.map((entry) => (
 			entry.navigationEntryType === 'group'
 			  ? <Group>
-					  <Text as='span' slot={'label'} variant='navTop'>{entry.label}</Text>
+					  <Text as='span' slot={'label'} variant='heading-1' class="text-primary">{entry.label}</Text>
 							{entry.children.map((childEntry) => (
-					    <Link entry={childEntry} variant='navChild' />
+					    <Link entry={childEntry} variant='heading-3' class="hover:underline hover:decoration-primary underline-offset-4 text-muted-foreground"/>
 							))}
 					</Group>
-				:  <Link entry={entry}/>
+				:  <Link entry={entry} class="text-primary hover:underline hover:decoration-primary underline-offset-4"/>
 			))}
 		</ul>
 	</div>

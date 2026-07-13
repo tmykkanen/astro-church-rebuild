@@ -40,12 +40,12 @@ const sections = await Promise.all(
 
 <Layout pageTitle={teamNavigationEntry.label ?? 'Team'}>
 	<main class="layout-base gap-8 py-8">
-		<Text as="h1" variant="heading">{pageTitle}</Text>
+		<Text as="h1" variant="heading-2">{pageTitle}</Text>
 		<Text as="p">{pageDescription}</Text>
 
 		{sections?.map((section) => (
     		<>
-    		  <Text as="h2" variant='subheading'>{section.name}</Text>
+    		  <Text as="h2" variant='heading-3'>{section.name}</Text>
       		<Text as='p'>{section.description}</Text>
           <div class="flex flex-col gap-8 sm:grid sm:grid-cols-2 lg:grid-cols-3">
             {section.entries.map((person) => (

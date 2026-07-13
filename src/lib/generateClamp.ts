@@ -16,7 +16,7 @@ export const calculateClamp = (
 ) => {
 	const {
 		// 1280 is Tailwind xl breakpoint
-		maxViewportWidth = 1280,
+		maxViewportWidth = 1024,
 		minViewportWidth = 375,
 		baseRemPx = 16,
 	} = options;
