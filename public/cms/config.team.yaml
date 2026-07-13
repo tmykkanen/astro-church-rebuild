@@ -1,0 +1,35 @@
+collections:
+  - name: team
+    label: Team
+    folder: src/content/team
+    media_folder: "{{media_folder}}/team"
+    slug: "{{fields.fullName}}"
+    summary: "{{fullName}}"
+    fields:
+      - name: firstName
+        label: First Name
+        widget: string
+      - name: lastName
+        label: Last Name
+        widget: string
+      - name: fullName
+        label: Full Name
+        widget: compute
+        value: "{{fields.firstName}} {{fields.lastName}}"
+      - name: image
+        label: Upload a Picture
+        widget: image
+        required: false
+      - name: position
+        label: Position
+        widget: string
+        required: false
+      - name: email
+        label: Email
+        widget: string
+        type: email
+        required: false
+      - name: body
+        label: Bio
+        widget: markdown
+        required: false

@@ -36,4 +36,7 @@ export default defineConfig({
 		plugins: [tailwindcss()],
 	},
 	integrations: [icon()],
+	image: {
+		layout: 'constrained',
+	},
 });

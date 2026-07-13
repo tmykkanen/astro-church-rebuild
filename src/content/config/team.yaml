@@ -1,0 +1,15 @@
+pageTitle: Church Leadership
+pageDescription: This is a page for church leadership
+sections:
+  - name: Pastors
+    description: Staff and lay pastors
+    entries:
+      - tyler-mykkanen
+      - joe-pastor
+      - jim-resident
+  - name: Deacons
+    description: Deacons and Deaconnesses
+    entries:
+      - jenna-deacon
+      - jill-admin
+      - julie-deacon

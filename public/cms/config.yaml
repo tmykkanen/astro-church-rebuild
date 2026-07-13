@@ -143,6 +143,38 @@ collections:
                 label: Link
                 widget: string
                 type: url
+      - name: team
+        label: Team
+        file: src/content/config/team.yaml
+        fields:
+          - name: pageTitle
+            label: Page Title
+            widget: string
+          - name: pageDescription
+            label: Page Description
+            widget: markdown
+          - name: sections
+            label: Sections
+            widget: list
+            required: false
+            fields:
+              - name: name
+                label: Name
+                widget: string
+              - name: description
+                label: Description
+                widget: markdown
+                required: false
+              - name: entries
+                label: Entries
+                widget: list
+                field:
+                  name: person
+                  label: Person
+                  widget: relation
+                  collection: team
+                  display_fields: [fullName]
+                  search_fields: [fullName]
       - name: blog
         label: Blog
         file: src/content/config/blog.yaml

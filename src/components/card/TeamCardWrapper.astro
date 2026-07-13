@@ -1,0 +1,17 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+import TeamCard from './TeamCard.astro';
+
+interface Props {
+	person: CollectionEntry<'team'>;
+}
+
+const { person } = Astro.props;
+---
+
+{person.data.email ?
+  <a href={`mailto:${person.data.email}`}>
+    <TeamCard {person}/>
+  </a>
+: <TeamCard {person}/>}

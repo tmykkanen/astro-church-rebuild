@@ -1,3 +1,4 @@
+import { reference } from 'astro:content';
 import { z } from 'astro/zod';
 
 const BaseSectionSchema = z.object({
@@ -58,6 +59,20 @@ export const ConfigFooterSchema = z.object({
 		isActive: z.boolean().default(true),
 		link: z.url(),
 	}).optional(),
+});
+
+export const ConfigTeamSchema = z.object({
+	pageTitle: z.string(),
+	pageDescription: z.string(),
+	sections: z
+		.array(
+			z.object({
+				name: z.string(),
+				description: z.string().optional(),
+				entries: z.array(reference('team')),
+			}),
+		)
+		.optional(),
 });
 
 export const ConfigThemeSchema = z.object({

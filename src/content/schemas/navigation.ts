@@ -12,7 +12,7 @@ const PageEntrySchema = BaseEntrySchema.extend({
 
 const FeatureEntrySchema = BaseEntrySchema.extend({
 	navigationEntryType: z.literal('feature'),
-	featureType: z.enum(['blog', 'calendar', 'sermons']),
+	featureType: z.enum(['blog', 'calendar', 'sermons', 'team']),
 	customSlug: z.string().slugify().optional(),
 });
 

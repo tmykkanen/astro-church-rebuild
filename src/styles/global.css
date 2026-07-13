@@ -3,8 +3,8 @@
 @import "default-theme.css";
 @import "generated-theme.css";
 @import "bejamas/tailwind.css";
+@import "tw-prose";
 @import "tw-prose-overrides.css";
-@plugin "@tailwindcss/typography";
 
 @theme inline {
 	--color-background: var(--background);

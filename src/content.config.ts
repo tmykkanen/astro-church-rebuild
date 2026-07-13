@@ -7,12 +7,14 @@ import {
 	ConfigFooterSchema,
 	ConfigHomepageSchema,
 	ConfigSiteSchema,
+	ConfigTeamSchema,
 	ConfigThemeSchema,
 } from './content/schemas/config';
 import { NavigationEntrySchema } from './content/schemas/navigation';
 import { PreacherSchema } from './content/schemas/preacher';
 import { SeriesSchema } from './content/schemas/series';
 import { SermonSchema } from './content/schemas/sermon';
+import { TeamSchema } from './content/schemas/team';
 
 const configSite = defineCollection({
 	loader: glob({ pattern: 'site.yaml', base: './src/content/config' }),
@@ -27,6 +29,11 @@ const configHomepage = defineCollection({
 const configFooter = defineCollection({
 	loader: glob({ pattern: 'footer.yaml', base: './src/content/config' }),
 	schema: ConfigFooterSchema,
+});
+
+const configTeam = defineCollection({
+	loader: glob({ pattern: 'team.yaml', base: './src/content/config' }),
+	schema: ConfigTeamSchema,
 });
 
 const configTheme = defineCollection({
@@ -52,6 +59,11 @@ const preacherCollection = defineCollection({
 	schema: PreacherSchema,
 });
 
+const teamCollection = defineCollection({
+	loader: glob({ pattern: '**/*.md', base: './src/content/team' }),
+	schema: TeamSchema,
+});
+
 const seriesCollection = defineCollection({
 	loader: glob({ pattern: '**/*.md', base: './src/content/series' }),
 	schema: SeriesSchema,
@@ -68,13 +80,15 @@ const blogCollection = defineCollection({
 });
 
 export const collections = {
-	site: configSite,
-	homepage: configHomepage,
-	footer: configFooter,
-	theme: configTheme,
+	'config:site': configSite,
+	'config:homepage': configHomepage,
+	'config:footer': configFooter,
+	'config:team': configTeam,
+	'config:theme': configTheme,
 	nav: navigationCollection,
 	pages: pagesCollection,
 	preachers: preacherCollection,
+	team: teamCollection,
 	series: seriesCollection,
 	sermons: sermonCollection,
 	blog: blogCollection,

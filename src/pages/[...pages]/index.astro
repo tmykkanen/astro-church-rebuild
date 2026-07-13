@@ -16,8 +16,6 @@ export const getStaticPaths = (async () => {
 		(page): page is NonNullable<typeof page> => page !== undefined,
 	);
 
-	console.log(pages);
-
 	return pages.map((page) => ({
 		params: { pages: page.id },
 		props: { page },

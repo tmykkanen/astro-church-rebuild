@@ -1,0 +1,72 @@
+---
+import { getEntries } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+
+import { TeamCard } from '#/components/card';
+import Text from '#/components/Text.astro';
+import { getConfig } from '#/content/lib/getConfig';
+import { getFeatureNavigationEntry } from '#/content/lib/getNavigation';
+import Layout from '#/layouts/Layout.astro';
+
+export const getStaticPaths = (async () => {
+	const teamNavigationEntry = await getFeatureNavigationEntry('team');
+
+	return teamNavigationEntry
+		? [
+				{
+					params: {
+						team: teamNavigationEntry.customSlug || 'team',
+					},
+					props: {
+						teamNavigationEntry,
+					},
+				},
+			]
+		: [];
+}) satisfies GetStaticPaths;
+
+const { teamNavigationEntry } = Astro.props;
+
+const config = await getConfig('team');
+const { pageTitle, pageDescription } = config;
+
+const sections = await Promise.all(
+	config.sections?.map(async (section) => ({
+		...section,
+		entries: await getEntries(section.entries),
+	})) ?? [],
+);
+---
+
+<Layout pageTitle={teamNavigationEntry.label ?? 'Team'}>
+	<main class="layout-base gap-8 py-8">
+		<Text as="h1" variant="heading">{pageTitle}</Text>
+		<Text as="p">{pageDescription}</Text>
+
+		{sections?.map((section) => (
+    		<>
+    		  <Text as="h2" variant='subheading'>{section.name}</Text>
+      		<Text as='p'>{section.description}</Text>
+          <div class="flex flex-col gap-8 sm:grid sm:grid-cols-2 lg:grid-cols-3">
+            {section.entries.map((person) => (
+            <TeamCard {person}/>
+            ))}
+          </div>
+    		</>
+			))}
+
+		<!-- {
+      config.sections &&
+      config.sections.map((section) => (
+      <>
+        <Text as="h2">{section.name}</Text>
+        <Text as='p'>{section.description}</Text>
+        {section.entries.map((entry) => (
+        {const person = await getEntry('team', entry.id)}
+        ))}
+      </T>
+      ))
+
+    } -->
+	</main>
+</Layout>

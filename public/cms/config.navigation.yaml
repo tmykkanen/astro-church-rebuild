@@ -36,6 +36,7 @@ collections:
                       - { label: Sermon, value: "sermons" }
                       - { label: Blog, value: "blog" }
                       - { label: Calendar, value: "calendar" }
+                      - { label: Team, value: "team" }
                   - name: customSlug
                     label: Custom URL Slug
                     comment: Custom URL will be slugified. Leave blank for default URL.
