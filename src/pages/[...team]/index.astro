@@ -4,8 +4,7 @@ import type { GetStaticPaths } from 'astro';
 
 import { TeamCard } from '#/components/card';
 import Text from '#/components/Text.astro';
-import { getConfig } from '#/content/lib/getConfig';
-import { getFeatureNavigationEntry } from '#/content/lib/getNavigation';
+import { getConfig, getFeatureNavigationEntry } from '#/content/getters';
 import Layout from '#/layouts/Layout.astro';
 
 export const getStaticPaths = (async () => {

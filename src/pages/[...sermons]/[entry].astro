@@ -5,8 +5,7 @@ import type { GetStaticPaths } from 'astro';
 import { Embed } from '#/components/embed';
 import { Meta } from '#/components/meta';
 import Text from '#/components/Text.astro';
-import { getFeatureNavigationEntry } from '#/content/lib/getNavigation';
-import { getSermons } from '#/content/lib/getSermons';
+import { getFeatureNavigationEntry, getSermons } from '#/content/getters';
 import Layout from '#/layouts/Layout.astro';
 
 export const getStaticPaths = (async () => {

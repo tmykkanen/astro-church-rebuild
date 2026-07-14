@@ -6,10 +6,12 @@ import { Embed } from '#/components/embed';
 import { Combobox, Controls, Datepicker, Search } from '#/components/filters';
 import { Meta } from '#/components/meta';
 import Text from '#/components/Text.astro';
-import { getFeatureNavigationEntry } from '#/content/lib/getNavigation';
-import { getPreachers } from '#/content/lib/getPreachers';
-import { getSeries } from '#/content/lib/getSeries';
-import { getSermons } from '#/content/lib/getSermons';
+import {
+	getFeatureNavigationEntry,
+	getPreachers,
+	getSeries,
+	getSermons,
+} from '#/content/getters';
 import Layout from '#/layouts/Layout.astro';
 
 export const getStaticPaths = (async () => {
