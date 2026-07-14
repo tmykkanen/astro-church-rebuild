@@ -56,7 +56,7 @@ export const getURLState = () => {
 		preacher: params.get('preacher'),
 		from: params.get('from'),
 		to: params.get('to'),
-		tags: params.get('tags'),
+		tag: params.get('tag'),
 		query: params.get('q'),
 	};
 };

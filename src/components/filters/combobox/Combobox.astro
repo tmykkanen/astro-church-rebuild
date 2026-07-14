@@ -10,6 +10,7 @@ import {
 	ComboboxItem,
 	ComboboxList,
 } from '#/components/ui/combobox';
+import { getTags } from '#/content/getters';
 
 type Option =
 	| CollectionEntry<'series'>
@@ -29,14 +30,21 @@ const typeMap: Record<Option['collection'], 'preacher' | 'series' | 'blog'> = {
 } as const;
 
 const type = typeMap[options[0].collection];
+
+const allTags = type === 'blog' ? await getTags() : [];
 ---
 
 <FilterWrapper>
 	<span slot="label">
 		{type === 'series' && 'Series'}
 		{type === 'preacher' && 'Preacher'}
+		{type === 'blog' && 'Tag'}
 	</span>
-	<Combobox name={type} data-filter-type={type} class="flex-3/4">
+	<Combobox
+		name={type}
+		data-filter-type={type === 'blog' ? 'tag' : type}
+		class="flex-3/4"
+	>
 		<ComboboxInput
 			placeholder="Filter by ..."
 			showClear
@@ -45,12 +53,15 @@ const type = typeMap[options[0].collection];
 		<ComboboxContent class="rounded-sm">
 			<ComboboxList>
 				<ComboboxEmpty>No results found.</ComboboxEmpty>
-				{options.map((entry) => (
-  			  <ComboboxItem value={entry.id}>
-  					{entry.collection === 'preachers' ?
-  				    `${entry.data.firstName} ${entry.data.lastName}`
-  					: entry.data.title
-  					}
+				{type === 'blog' ? allTags.map((tag) => (
+				  <ComboboxItem value={tag}>
+						{tag}
+						</ComboboxItem>
+					))
+					: options.map((entry) => (
+				    <ComboboxItem value={entry.id}>
+  					{entry.collection === 'preachers' && `${entry.data.firstName} ${entry.data.lastName}`}
+  					{entry.collection === 'series' && entry.data.title}
   				</ComboboxItem>
   			))}
 			</ComboboxList>

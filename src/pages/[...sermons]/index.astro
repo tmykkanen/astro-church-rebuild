@@ -1,7 +1,7 @@
 ---
 import type { GetStaticPaths } from 'astro';
 
-import { SermonCard } from '#/components/card';
+import { EntryCard } from '#/components/card';
 import { Embed } from '#/components/embed';
 import { Combobox, Controls, Datepicker, Search } from '#/components/filters';
 import { Meta } from '#/components/meta';
@@ -53,7 +53,7 @@ const baseUrl = sermonNavigationEntry.customSlug || 'sermons';
 			<Text
 				as="a"
 				variant="heading-3"
-				class="hover:underline hover:decoration-primary underline-offset-4"
+				class="hover:underline hover:decoration-primary underline-offset-4 w-fit"
 				href={`${baseUrl}/${latestSermon.id}`}
 				>{latestSermon.data.title}</Text
 			>
@@ -84,37 +84,14 @@ const baseUrl = sermonNavigationEntry.customSlug || 'sermons';
 				</div>
 			</div>
 			<div class="flex flex-col gap-8 xl:grid xl:grid-cols-2">
-				{allSermons.map((sermon) => (<SermonCard entry={sermon} />))}
+				{allSermons.map((sermon) => (<EntryCard entry={sermon} />))}
 			</div>
 		</section>
 	</main>
 </Layout>
 
 <script>
-import {
-	applyFilters,
-	initComboboxes,
-	initControls,
-	initDatepickers,
-	initSearch,
-} from '#/components/filters';
+import { initAllFilters } from '#/components/filters';
 
-const cards = document.querySelectorAll<HTMLElement>('[data-sermon-card]');
-
-const filtersContainer = document.querySelector<HTMLDivElement>(
-	'[data-filters-container]',
-);
-
-initComboboxes();
-initDatepickers();
-initSearch(cards);
-initControls();
-
-window.addEventListener('urlstate:change', () => {
-	const filtersActive = applyFilters(cards);
-
-	filtersContainer?.toggleAttribute('data-filters-active', filtersActive);
-});
-
-window.dispatchEvent(new Event('urlstate:change'));
+initAllFilters();
 </script>

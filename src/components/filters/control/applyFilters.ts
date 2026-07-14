@@ -1,22 +1,20 @@
-import { isSermonCardElement } from '#/components/card';
 import { getMatches } from '#/components/filters/';
 import { getURLState } from '#/lib/urlState';
 
 export const applyFilters = (cards: NodeListOf<HTMLElement>): boolean => {
-	const { series, preacher, tags, from, to, query } = getURLState();
+	const { series, preacher, tag, from, to, query } = getURLState();
 
 	const filtersActive = Boolean(
-		series || preacher || tags || from || to || query,
+		series || preacher || tag || from || to || query,
 	);
 
 	const searchResults = query ? getMatches(query) : null;
 
 	cards.forEach((card) => {
-		if (!isSermonCardElement(card)) return;
-
 		const matchesSeries = !series || card.dataset.series === series;
 		const matchesPreacher = !preacher || card.dataset.preacher === preacher;
-		const matchesTags = !tags || card.dataset.tags === tags;
+		const matchesTag =
+			!tag || (card.dataset.tags ?? '').split(',').includes(tag);
 		const matchesFrom =
 			!from ||
 			(card.dataset.date &&
@@ -31,7 +29,7 @@ export const applyFilters = (cards: NodeListOf<HTMLElement>): boolean => {
 		card.hidden = !(
 			matchesSeries &&
 			matchesPreacher &&
-			matchesTags &&
+			matchesTag &&
 			matchesFrom &&
 			matchesTo &&
 			matchesQuery
