@@ -26,7 +26,7 @@ const href =
 
 <NavigationMenuLink
 	href={`${href}`}
-	class={cn(className, "hover:bg-secondary focus:bg-secondary data-open:hover:bg-secondary data-open:focus:bg-secondary data-open:bg-secondary/50", Astro.url.pathname !== '/' && 'bg-muted')}
+	class={cn(className, "hover:bg-secondary focus:bg-secondary data-open:hover:bg-secondary data-open:focus:bg-secondary data-open:bg-secondary/50")}
 	{...rest}
 >
 	{entry.label}

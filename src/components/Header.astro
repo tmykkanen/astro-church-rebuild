@@ -16,7 +16,7 @@ const primaryNav = await getNavigation('primary');
 
 <!-- TODO: Consider dynamic height — but have to account for in full-page home layout -->
 <header
-	class:list={["layout-full py-4 h-26", Astro.url.pathname !== "/" && "bg-muted"]}
+	class:list={["layout-full py-8", Astro.url.pathname === "/" ? "absolute inset-x-0 top-0 z-40 bg-background" : "relative"]}
 >
 	<div class="flex justify-between">
 		<div class="flex items-center gap-4 pr-4">

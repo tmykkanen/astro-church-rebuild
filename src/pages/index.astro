@@ -15,12 +15,12 @@ const bgImg = getImage(hero?.bgImage);
 ---
 
 <Layout pageTitle="Home">
-	<main class="relative min-h-[calc(100vh-6.5rem)]">
+	<main class="relative min-h-svh">
 		<h1 class="sr-only">
 			{siteConfig.churchName}
 		</h1>
 		<section
-			class="grid min-h-[calc(100vh-6.5rem)] w-full bg-cover bg-right"
+			class="grid min-h-svh w-full bg-cover bg-right"
 			aria-labelledby="hero-heading"
 		>
 			{bgImg && (
@@ -32,7 +32,7 @@ const bgImg = getImage(hero?.bgImage);
 						priority
 					/>
 					<div
-            class="bg-muted z-10 col-start-1 row-start-1 h-full w-full opacity-85"
+            class="bg-muted z-5 col-start-1 row-start-1 h-full w-full opacity-85"
             aria-hidden="true"
           />
 			</>
@@ -51,7 +51,7 @@ const bgImg = getImage(hero?.bgImage);
               variant={'secondary'}
               target={'_blank'}
               rel={'noopener noreferrer'}
-              class={'uppercase tracking-widest whitespace-normal font-semibold h-auto w-full rounded-md text-center'}
+              class={'uppercase tracking-widest whitespace-normal font-semibold h-auto w-full rounded-md text-center cursor-pointer'}
               style={`font-size:${generateClamp(0.75, 0.875)}`}
             >{cta.text.code}</Button>
           )}

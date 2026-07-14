@@ -27,7 +27,7 @@ const fontSize = {
 ---
 
 <NavigationMenu class="max-lg:hidden" aria-label="full-screen">
-	<NavigationMenuList class="flex-wrap justify-end">
+	<NavigationMenuList class="flex-wrap justify-end gap-2">
 		{navigationEntries.map((entry) => (
   		<NavigationMenuItem value={entry.label}>
         {entry.navigationEntryType === 'group' ?
