@@ -12,10 +12,10 @@ type ClampOptions = {
 export const calculateClamp = (
 	minFontInRem: number,
 	maxFontInRem: number,
-	options: ClampOptions,
+	options: ClampOptions = {},
 ) => {
 	const {
-		// 1280 is Tailwind xl breakpoint
+		// 1024 is Tailwind lg breakpoint
 		maxViewportWidth = 1024,
 		minViewportWidth = 375,
 		baseRemPx = 16,
