@@ -15,12 +15,18 @@ interface Props {
 
 const { class: className = '', entry, variant = 'heading-1' } = Astro.props;
 
-const href =
-	entry.navigationEntryType === 'external'
-		? entry.url
-		: entry.navigationEntryType === 'page'
-			? entry.page.id
-			: entry.customSlug || entry.featureType;
+let href: string;
+
+switch (entry.navigationEntryType) {
+	case 'external':
+		href = entry.url;
+		break;
+	case 'feature':
+		href = `/${entry.customSlug || entry.featureType}`;
+		break;
+	default:
+		href = `/${entry.page.id}`;
+}
 ---
 
 <li>
