@@ -9,40 +9,39 @@ import { getFeatureNavigationEntry, getSermons } from '#/content/getters';
 import Layout from '#/layouts/Layout.astro';
 
 export const getStaticPaths = (async () => {
-	const sermonNavigationEntry = await getFeatureNavigationEntry('sermons');
-	const allSermons = await getSermons();
-	const baseUrl =
-		sermonNavigationEntry?.customSlug || sermonNavigationEntry?.featureType;
+	const navigationEntry = await getFeatureNavigationEntry('sermons');
+	const allEntries = await getSermons();
+	const baseUrl = navigationEntry?.customSlug || navigationEntry?.featureType;
 
-	return sermonNavigationEntry
-		? allSermons.map((sermon) => ({
+	return navigationEntry
+		? allEntries.map((entry) => ({
 				params: {
-					entry: `${baseUrl}/${sermon.id}`,
+					entry: `${baseUrl}/${entry.id}`,
 				},
-				props: { sermon },
+				props: { entry },
 			}))
 		: [];
 }) satisfies GetStaticPaths;
 
-const { sermon } = Astro.props;
+const { entry } = Astro.props;
 
-const { title, bulletinURL } = sermon.data;
+const { title, bulletinURL } = entry.data;
 
-const { Content: SermonContent } = await render(sermon);
-const { Content: PreacherContent } = await render(sermon.preacher);
+const { Content: SermonContent } = await render(entry);
+const { Content: PreacherContent } = await render(entry.preacher);
 ---
 
 <Layout pageTitle={title}>
 	<main class="layout-sermon gap-4 py-8">
 		<div>
 			<Text as="h1" variant="heading-1">{title}</Text>
-			<Meta entry={sermon} />
+			<Meta {entry} />
 		</div>
 		<div class="h-90">
-			<Embed entry={sermon} />
+			<Embed {entry} />
 		</div>
 		<div class="text-muted-foreground flex flex-col gap-4">
-			{sermon.rendered?.html ? <SermonContent /> : <PreacherContent />}
+			{entry.rendered?.html ? <SermonContent /> : <PreacherContent />}
 			{bulletinURL && (
           <Text as='a' href={bulletinURL} target="_blank" rel="noopener noreferrer" variant='link'>
             View the Bulletin
