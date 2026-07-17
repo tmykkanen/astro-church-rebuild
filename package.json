@@ -57,6 +57,6 @@
 		"yaml": "^2.9.0"
 	},
 	"lint-staged": {
-		"*": "biome check --write --files-ignore-unknown=true"
+		"*.{js,jsx,ts,tsx,json,jsonc,css,astro,md}": "biome check --write --files-ignore-unknown=true"
 	}
 }
