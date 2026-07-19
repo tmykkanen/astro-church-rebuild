@@ -1,5 +1,4 @@
 ---
-import Text from '#/components/Text.astro';
 import type { NavigationEntry } from '#/content/types/navigation';
 
 import Control from './Control.astro';
@@ -13,10 +12,8 @@ interface Props {
 const { navigationEntries } = Astro.props;
 ---
 
-<!-- TODO: Adjust text sizing on mobile nav -->
-
 <!-- use classes group and group-has-checked to control behavior -->
-<nav class="lg:hidden group">
+<nav class="lg:hidden group flex">
 	<Control />
 
 	<div
@@ -26,12 +23,12 @@ const { navigationEntries } = Astro.props;
 			{navigationEntries.map((entry) => (
 			entry.navigationEntryType === 'group'
 			  ? <Group>
-					  <Text as='span' slot={'label'} variant='heading-1' class="text-primary">{entry.label}</Text>
+					  <span slot={'label'} class="typo-h2 text-primary">{entry.label}</span>
 							{entry.children.map((childEntry) => (
-					    <Link entry={childEntry} variant='heading-3' class="hover:underline hover:decoration-primary underline-offset-4 text-muted-foreground"/>
+					    <Link entry={childEntry} class="text-base md:text-[1.125rem] hover:underline hover:decoration-primary underline-offset-4 text-muted-foreground"/>
 							))}
 					</Group>
-				:  <Link entry={entry} class="text-primary hover:underline hover:decoration-primary underline-offset-4"/>
+				:  <Link entry={entry} class="typo-h2 text-primary hover:underline hover:decoration-primary underline-offset-4"/>
 			))}
 		</ul>
 	</div>

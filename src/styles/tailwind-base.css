@@ -1,0 +1,35 @@
+@layer base {
+	* {
+		@apply border-border outline-ring/50;
+	}
+
+	body {
+		@apply bg-background text-foreground;
+	}
+
+	.cn-font-heading {
+		@apply font-heading;
+	}
+
+	html {
+		@apply font-sans;
+	}
+}
+
+/* https://tailwindcss.com/docs/upgrade-guide#buttons-use-the-default-cursor */
+@layer base {
+	button:not(:disabled),
+	[role="button"]:not(:disabled) {
+		cursor: pointer;
+	}
+}
+
+/* https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/scrollbar-color */
+@layer base {
+	:root {
+		scrollbar-color: var(--muted-foreground) var(--muted);
+		a {
+			@apply focus-visible:border-ring focus-visible:ring-ring outline-none focus-visible:ring-2;
+		}
+	}
+}

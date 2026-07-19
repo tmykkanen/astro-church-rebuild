@@ -1,19 +1,18 @@
 import Fuse from 'fuse.js';
 
-import type { SermonCardData } from '#/components/card';
+import type { CardData } from '#/components/card';
 import { createURLState } from '#/lib/urlState';
 
-export let fuse: Fuse<SermonCardData> | undefined;
+export let fuse: Fuse<CardData> | undefined;
 
-export const createCardData = (
-	cards: NodeListOf<HTMLElement>,
-): SermonCardData[] =>
+export const createCardData = (cards: NodeListOf<HTMLElement>): CardData[] =>
 	[...cards].map((card) => ({
 		element: card,
 		title: card.dataset.title ?? '',
 		series: card.dataset.series ?? '',
 		preacher: card.dataset.preacher ?? '',
 		scriptures: JSON.parse(card.dataset.scriptures ?? '[]'),
+		tags: (card.dataset.tags ?? '').split(','),
 	}));
 
 export const init = (cards: NodeListOf<HTMLElement>) => {
@@ -30,6 +29,7 @@ export const init = (cards: NodeListOf<HTMLElement>) => {
 			{ name: 'series', weight: 0.5 },
 			{ name: 'preacher', weight: 0.3 },
 			{ name: 'scriptures', weight: 0.5 },
+			{ name: 'tags', weight: 0.3 },
 		],
 	});
 

@@ -1,6 +1,5 @@
 ---
 import type { Variant } from '#/components/Text.astro';
-import Text from '#/components/Text.astro';
 import type {
 	NavigationExternalEntry,
 	NavigationFeatureEntry,
@@ -13,7 +12,7 @@ interface Props {
 	variant?: Variant;
 }
 
-const { class: className = '', entry, variant = 'heading-1' } = Astro.props;
+const { class: className = '', entry } = Astro.props;
 
 let href: string;
 
@@ -30,5 +29,5 @@ switch (entry.navigationEntryType) {
 ---
 
 <li>
-	<Text as="a" {href} class={className} {variant}>{entry.label}</Text>
+	<a {href} class={className}>{entry.label}</a>
 </li>

@@ -6,13 +6,19 @@ import {
 	InputGroupAddon,
 	InputGroupInput,
 } from '#/components/ui/input-group';
+
+interface Props {
+	placeholder: string;
+}
+
+const { placeholder } = Astro.props;
 ---
 
 <InputGroup
 	class="text-sm border-accent bg-muted hover:bg-secondary rounded-sm"
 	data-slot="search"
 >
-	<InputGroupInput placeholder="Search sermons..." data-slot="search-input" />
+	<InputGroupInput {placeholder} data-slot="search-input" />
 	<InputGroupAddon>
 		<SearchIcon />
 	</InputGroupAddon>

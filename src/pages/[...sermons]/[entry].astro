@@ -4,7 +4,6 @@ import type { GetStaticPaths } from 'astro';
 
 import { Embed } from '#/components/embed';
 import { Meta } from '#/components/meta';
-import Text from '#/components/Text.astro';
 import { getFeatureNavigationEntry, getSermons } from '#/content/getters';
 import Layout from '#/layouts/Layout.astro';
 
@@ -32,9 +31,9 @@ const { Content: PreacherContent } = await render(entry.preacher);
 ---
 
 <Layout pageTitle={title}>
-	<main class="layout-sermon gap-4 py-8">
-		<div>
-			<Text as="h1" variant="heading-1">{title}</Text>
+	<main class="layout-sermon gap-8 py-8">
+		<div class="flex flex-col gap-2">
+			<h1 class="typo-h2">{title}</h1>
 			<Meta {entry} />
 		</div>
 		<div class="h-90">
@@ -43,9 +42,9 @@ const { Content: PreacherContent } = await render(entry.preacher);
 		<div class="text-muted-foreground flex flex-col gap-4">
 			{entry.rendered?.html ? <SermonContent /> : <PreacherContent />}
 			{bulletinURL && (
-          <Text as='a' href={bulletinURL} target="_blank" rel="noopener noreferrer" variant='link'>
+          <a href={bulletinURL} target="_blank" rel="noopener noreferrer" class="underline hover:decoration-primary hover:text-foreground">
             View the Bulletin
-          </Text>
+          </a>
         )}
 		</div>
 	</main>

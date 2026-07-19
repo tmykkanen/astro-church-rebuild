@@ -54,7 +54,7 @@ const allTags = type === 'blog' ? await getTags() : [];
 			<ComboboxList>
 				<ComboboxEmpty>No results found.</ComboboxEmpty>
 				{type === 'blog' ? allTags.map((tag) => (
-				  <ComboboxItem value={tag}>
+				  <ComboboxItem value={tag} >
 						{tag}
 						</ComboboxItem>
 					))

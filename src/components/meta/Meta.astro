@@ -49,9 +49,9 @@ const { date } = entry.data;
       </Badge>
     ))}
 
-    <Badge as="a" href={`/${sermonBaseUrl}?preacher=${entry.data.preacher.id}`} {...props}>{entry.preacher.data.firstName}{' '}{entry.preacher.data.lastName}</Badge>
+    <Badge as="a" href={`/${sermonBaseUrl}?preacher=${entry.data.preacher.id}`} class:list={'hidden sm:flex'} {...props}>{entry.preacher.data.firstName}{' '}{entry.preacher.data.lastName}</Badge>
 
-    <Badge as="a" href='#' {...props}>
+    <Badge as="a" href='#' class:list={'hidden sm:flex'} {...props}>
         {entry.series.data.title}
     </Badge>
   </>

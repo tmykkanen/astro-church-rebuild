@@ -1,0 +1,136 @@
+@theme {
+	/* Perfect Fourth (1.33) Type Scale */
+	/*--text-xs: 0.565rem;*/
+	/*--text-sm: 0.752rem;*/
+	--text-base: 1rem;
+	--text-lg: 1.33rem;
+	--text-xl: 1.769rem;
+	--text-2xl: 2.35rem;
+	--text-3xl: 3.129rem;
+	--text-4xl: 4.162rem;
+	--text-5xl: 5.535rem;
+
+	/* Hero */
+	--typo-hero: clamp(3.129rem, 1.74rem + 5.93vw, 5.535rem);
+	--typo-weight-hero: 700;
+	--typo-transform-hero: uppercase;
+	--typo-spacing-hero: 0.1rem;
+	--typo-leading-hero: 1;
+	--typo-margins-hero: 0 0 2rem 0;
+
+	/* Heading 1 */
+	--typo-h1: var(--text-2xl);
+	--typo-weight-h1: 500;
+	--typo-transform-h1: uppercase;
+	--typo-spacing-h1: 0.07rem;
+	--typo-leading-h1: 1.111;
+	--typo-margins-h1: 0 0 0.889rem 0;
+
+	/* Heading 2 */
+	--typo-h2: var(--text-xl);
+	--typo-weight-h2: 500;
+	--typo-transform-h2: uppercase;
+	--typo-spacing-h2: 0.05rem;
+	--typo-leading-h2: 1.333;
+	--typo-margins-h2: 2rem 0 1rem 0;
+
+	/* Heading 3 */
+	--typo-h3: var(--text-lg);
+	--typo-weight-h3: 500;
+	--typo-transform-h3: uppercase;
+	--typo-spacing-h3: 0.05rem;
+	--typo-leading-h3: 1.6;
+	--typo-margins-h3: 1.6rem 0 0.6rem 0;
+
+	/* Heading 4 */
+	--typo-h4: var(--text-base);
+	--typo-weight-h4: 400;
+	--typo-spacing-h4: 0.05rem;
+	--typo-leading-h4: 1.6;
+	--typo-margins-h4: 1.6rem 0 0.6rem 0;
+
+	/* Body */
+	--typo-body: var(--text-sm);
+	--typo-weight-body: 400;
+	--typo-spacing-body: 0.05rem;
+	--typo-leading-body: 1.6;
+	--typo-margins-body: 1.6rem 0 0.6rem 0;
+}
+
+@media (width >= 48rem /* 768px */) {
+	:root {
+		/* Heading 1 */
+		--typo-h1: var(--text-3xl);
+
+		/* Heading 2 */
+		--typo-h2: var(--text-2xl);
+
+		/* Heading 3 */
+		--typo-h3: var(--text-xl);
+		--typo-weight-h3: 400;
+
+		/* Heading 4 */
+		--typo-h4: var(--text-lg);
+
+		/* Body */
+		--typo-body: var(--text-base);
+	}
+}
+
+@utility typo-* {
+	font-size: --value(--typo-*);
+	font-weight: --value(--typo-weight-*);
+	text-transform: --value(--typo-transform-*);
+	letter-spacing: --value(--typo-spacing-*);
+	line-height: --value(--typo-leading-*);
+	/*margin: --value(--typo-margins-*);*/
+}
+
+/* TW Prose Color Overrides */
+@utility prose-custom {
+	--tw-prose-body: var(--muted-foreground);
+	--tw-prose-headings: var(--foreground);
+	--tw-prose-lead: var(--muted-foreground);
+	--tw-prose-links: var(--muted-foreground);
+	--tw-prose-bold: var(--foreground);
+	--tw-prose-counters: var(--primary);
+	--tw-prose-bullets: var(--primary);
+	--tw-prose-hr: var(--muted-foreground);
+	--tw-prose-quotes: var(--foreground);
+	--tw-prose-quote-borders: var(--primary);
+	--tw-prose-captions: var(--foreground);
+	--tw-prose-code: var(--foreground);
+	--tw-prose-pre-code: var(--muted-foreground);
+	--tw-prose-pre-bg: var(--muted);
+	--tw-prose-th-borders: var(--accent);
+	--tw-prose-td-borders: var(--accent);
+	--tw-prose-invert-body: var(--muted-foreground);
+	--tw-prose-invert-headings: var(--foreground);
+	--tw-prose-invert-lead: var(--muted-foreground);
+	--tw-prose-invert-links: var(--muted-foreground);
+	--tw-prose-invert-bold: var(--foreground);
+	--tw-prose-invert-counters: var(--primary);
+	--tw-prose-invert-bullets: var(--primary);
+	--tw-prose-invert-hr: var(--muted-foreground);
+	--tw-prose-invert-quotes: var(--foreground);
+	--tw-prose-invert-quote-borders: var(--primary);
+	--tw-prose-invert-captions: var(--foreground);
+	--tw-prose-invert-code: var(--foreground);
+	--tw-prose-invert-pre-code: var(--muted-foreground);
+	--tw-prose-invert-pre-bg: var(--muted);
+	--tw-prose-invert-th-borders: var(--accent);
+	--tw-prose-invert-td-borders: var(--accent);
+}
+
+.prose-custom h1 {
+	@apply typo-h1 m-(--typo-margins-h1);
+}
+.prose-custom h2 {
+	@apply typo-h2 m-(--typo-margins-h2);
+}
+.prose-custom h3 {
+	@apply typo-h3 m-(--typo-margins-h3);
+}
+.prose-custom h4 {
+	@apply typo-h4 m-(--typo-margins-h4);
+}

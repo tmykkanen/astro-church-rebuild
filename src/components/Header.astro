@@ -5,7 +5,6 @@ import { getConfig, getNavigation } from '#/content/getters';
 import { getImage } from '#/lib/getImage';
 
 import { DesktopNav, MobileNav } from './nav';
-import Text from './Text.astro';
 
 const config = await getConfig('site');
 
@@ -21,8 +20,8 @@ const primaryNav = await getNavigation('primary');
 	<div class="flex justify-between">
 		<div class="flex items-center gap-4 pr-4">
 			{config.churchName.showInHeader
-			? ( <Text as="h2" variant="heading-1"
-				><a href="/">{config.churchName.name}</a></Text
+			? ( <h2 class="typo-h2"
+				><a href="/">{config.churchName.name}</a></h2
 			>
 			) :
 			(<h2 class="sr-only">{config.churchName.name}</h2>)}

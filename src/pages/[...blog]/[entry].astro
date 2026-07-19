@@ -1,0 +1,42 @@
+---
+import { render } from 'astro:content';
+import type { GetStaticPaths } from 'astro';
+
+import { Meta } from '#/components/meta';
+import { getBlog, getFeatureNavigationEntry } from '#/content/getters';
+import Layout from '#/layouts/Layout.astro';
+
+export const getStaticPaths = (async () => {
+	const navigationEntry = await getFeatureNavigationEntry('blog');
+	const allEntries = await getBlog();
+	const baseUrl = navigationEntry?.customSlug || navigationEntry?.featureType;
+
+	return navigationEntry
+		? allEntries.map((entry) => ({
+				params: {
+					entry: `${baseUrl}/${entry.id}`,
+				},
+				props: { entry },
+			}))
+		: [];
+}) satisfies GetStaticPaths;
+
+const { entry } = Astro.props;
+
+const { title } = entry.data;
+
+const { Content } = await render(entry);
+---
+
+<!-- TODO: Add date to blog post entry -->
+<Layout pageTitle={title}>
+	<main class="layout-prose gap-8 py-8">
+		<div class="flex flex-col gap-2">
+			<h1 class="typo-h2">{title}</h1>
+			<Meta {entry} />
+		</div>
+		<div class="text-muted-foreground flex flex-col gap-4">
+			<Content />
+		</div>
+	</main>
+</Layout>

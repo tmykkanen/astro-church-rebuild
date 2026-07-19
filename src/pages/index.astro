@@ -1,7 +1,6 @@
 ---
 import { Image } from 'astro:assets';
 
-import Text from '#/components/Text.astro';
 import { Button } from '#/components/ui/button';
 import { getConfig } from '#/content/getters';
 import Layout from '#/layouts/Layout.astro';
@@ -39,12 +38,8 @@ const bgImg = getImage(hero?.bgImage);
 		)}
 
 			<div class="layout-base isolate z-20 col-start-1 row-start-1 gap-y-8">
-				<Text
-					as="h2"
-					id="hero-heading"
-					variant="hero"
-					set:html={hero?.text.code}
-				/>
+				<!-- biome-ignore lint/a11y/useHeadingContent: Content is provided via set:html -->
+				<h2 class="typo-hero" set:html={hero?.text.code} />
 				{cta?.text && (
             <Button
               as='a'

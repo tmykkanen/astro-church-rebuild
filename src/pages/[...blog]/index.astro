@@ -3,8 +3,7 @@ import type { GetStaticPaths } from 'astro';
 
 import { EntryCard } from '#/components/card';
 import { Combobox, Controls, Datepicker, Search } from '#/components/filters';
-import Text from '#/components/Text.astro';
-import { getBlog, getFeatureNavigationEntry, getTags } from '#/content/getters';
+import { getBlog, getFeatureNavigationEntry } from '#/content/getters';
 import Layout from '#/layouts/Layout.astro';
 
 export const getStaticPaths = (async () => {
@@ -27,30 +26,26 @@ export const getStaticPaths = (async () => {
 const { blogNavigationEntry } = Astro.props;
 
 const allPosts = await getBlog();
-
-const allTags = await getTags();
-console.log(allTags);
 ---
 
 <Layout pageTitle={blogNavigationEntry.label ?? 'Blog'}>
 	<main class="layout-base gap-8 py-8">
 		<h1 class="sr-only">Blog</h1>
 		<section class="flex flex-col gap-4">
-			<Text as="h2" variant="heading-2">All Posts</Text>
+			<h2 class="typo-h2">All Posts</h2>
 			<div
 				class="flex flex-col gap-4 group"
 				data-filters-container
 				data-filters-hidden
 			>
 				<div class="flex flex-col gap-4 md:flex-row">
-					<Search />
+					<Search placeholder="Search posts..." />
 					<Controls />
 				</div>
 				<div
 					class="flex flex-col xl:grid xl:grid-cols-2 gap-4 mb-4 group-data-filters-hidden:hidden"
 				>
 					<Combobox options={allPosts} />
-					<!-- <Combobox options={allPreachers} /> -->
 					<Datepicker type="from" />
 					<Datepicker type="to" />
 				</div>

@@ -2,7 +2,6 @@
 import { CircleX } from '@lucide/astro';
 import { format } from 'date-fns';
 
-import Text from '#/components/Text.astro';
 import { Skeleton } from '#/components/ui/skeleton';
 import { getConfig } from '#/content/getters';
 import type { HydratedSermon } from '#/content/types/sermons';
@@ -57,20 +56,16 @@ const youtubeLink = socials
 )
 
 : <div class="relative h-full w-full border-muted border-2 rounded-sm flex flex-col items-center justify-center">
-  <Text as='h3' variant='heading-3' class="text-primary flex items-center gap-2">
-    <CircleX class="h-5 w-5 md:h-6 md:w-6" aria-hidden="true" />
-    Sermon media not found.
-  </Text>
+  <h3 class="typo-h3 text-primary flex items-center gap-2"><CircleX class="h-5 w-5 md:h-6 md:w-6" aria-hidden="true" />
+  Sermon media not found.</h3>
   {youtubeLink &&
-    (<Text
-      as='a'
-      variant='link'
+    (<a
       href={`${youtubeLink}/search?query=${format(date, "LLL dd, yyyy")}`}
       target={'_blank'}
       rel={'noopener noreferrer'}
       aria-label="link to search youtube channel"
-      class='no-underline! hover:underline!'
-    >Click here to search our YouTube channel.</Text>)
+      class='hover:decoration-primary hover:text-foreground hover:underline'
+    >Click here to search our YouTube channel.</a>)
   }
 
 </div>}

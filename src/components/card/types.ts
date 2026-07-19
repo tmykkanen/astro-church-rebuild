@@ -14,10 +14,11 @@
 // 	return element instanceof HTMLElement && 'sermonCard' in element.dataset;
 // };
 
-export type SermonCardData = {
+export type CardData = {
 	element: HTMLElement;
 	title: string;
 	series: string;
 	preacher: string;
 	scriptures: string[];
+	tags: string[];
 };

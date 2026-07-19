@@ -1,0 +1,28 @@
+@theme {
+	/*--breakpoint-xs: 24rem;*/
+	--layout-base: 80rem;
+	--layout-prose: 65ch;
+	--layout-sermon: 40rem;
+	--layout-full: 100%;
+}
+
+@utility layout-* {
+	--layout-max-width: --value(--layout-*);
+	--layout-padding: calc(var(--spacing) * 8);
+
+	display: grid;
+
+	place-content: center;
+	grid-template-columns:
+		minmax(var(--layout-padding), 1fr)
+		min(var(--layout-max-width), 100% - var(--layout-padding) * 2)
+		minmax(var(--layout-padding), 1fr);
+
+	& > * {
+		grid-column: 2 / 3;
+	}
+
+	& > .full-width {
+		grid-column: 1 / -1;
+	}
+}

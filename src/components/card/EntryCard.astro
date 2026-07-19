@@ -3,7 +3,6 @@ import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 
 import { Meta } from '#/components/meta';
-import Text from '#/components/Text.astro';
 import { getFeatureNavigationEntry } from '#/content/getters';
 import { type HydratedSermon, isSermon } from '#/content/types/sermons';
 import { getImage } from '#/lib/getImage';
@@ -49,9 +48,9 @@ const baseUrl = navigationEntry?.customSlug || type;
     </a>}
 
 	<div class="flex flex-col justify-center gap-2 p-4 md:p-8 flex-2 min-w-0">
-		<a href={`${baseUrl}/${entry.id}`}
-			><Text as="h3" variant="heading-4">{entry.data.title}</Text></a
-		>
+		<a href={`${baseUrl}/${entry.id}`}>
+			<h3 class="typo-h4">{entry.data.title}</h3>
+		</a>
 		<Meta {entry} variant="outline" />
 	</div>
 </div>

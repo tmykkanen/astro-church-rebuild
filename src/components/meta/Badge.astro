@@ -4,9 +4,9 @@ import type { HTMLTag } from 'astro/types';
 import { Badge } from '#/components/ui/badge';
 
 const themes = {
-	default: 'text-xs',
+	default: '',
 	muted:
-		'bg-muted text-muted-foreground text-xs [a]:hover:text-primary-foreground [a]:hover:bg-primary',
+		'bg-muted text-muted-foreground [a]:hover:text-primary-foreground [a]:hover:bg-primary',
 };
 
 export type Theme = keyof typeof themes;

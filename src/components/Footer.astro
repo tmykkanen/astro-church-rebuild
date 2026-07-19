@@ -2,7 +2,6 @@
 import { getConfig } from '#/content/getters';
 
 import { Socials } from './social';
-import Text from './Text.astro';
 
 const siteConfig = await getConfig('site');
 const footerConfig = await getConfig('footer');
@@ -12,7 +11,7 @@ const footerConfig = await getConfig('footer');
 	<section class="flex flex-col gap-8">
 		{footerConfig.sections?.map((section) => (
 		<div class="flex flex-col gap-2">
-      <Text as="h2" variant='heading-3'>{section.heading}</Text>
+      <h2 class='typo-h3'>{section.heading}</h2>
       <span set:html={section.content} />
 		</div>
     ))}

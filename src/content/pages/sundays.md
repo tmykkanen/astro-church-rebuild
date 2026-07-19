@@ -20,12 +20,6 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sollicitudin non
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sollicitudin non turpis eget fringilla. Mauris venenatis mattis velit, in tincidunt nisl consectetur vel. Aliquam volutpat viverra est. Morbi in tellus tortor. Donec tempor, sem eget maximus tincidunt, eros libero mattis metus, vel ultricies velit lacus quis diam.
 
-##### H5 Heading
-
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris sollicitudin non turpis eget fringilla. Mauris venenatis mattis velit, in tincidunt nisl consectetur vel. Aliquam volutpat viverra est. Morbi in tellus tortor. Donec tempor, sem eget maximus tincidunt, eros libero mattis metus, vel ultricies velit lacus quis diam.
-
-###### H6 Heading
-
 - List Item 1
 - List Item 2
 - List Item 3
