@@ -9,9 +9,6 @@
 /* Tailwind config */
 @import "tailwind-theme.css";
 
-/* Base element styles */
-@import "tailwind-base.css";
-
 /* Utilities & components */
 @import "layout.css";
 @import "typography.css";
