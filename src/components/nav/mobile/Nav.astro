@@ -1,19 +1,22 @@
 ---
+import type { HTMLAttributes } from 'astro/types';
+
 import type { NavigationEntry } from '#/content/types/navigation';
 
 import Control from './Control.astro';
 import Group from './Group.astro';
 import Link from './Link.astro';
 
-interface Props {
+interface Props extends HTMLAttributes<'nav'> {
 	navigationEntries: NavigationEntry[];
+	class?: string;
 }
 
-const { navigationEntries } = Astro.props;
+const { navigationEntries, class: className } = Astro.props;
 ---
 
 <!-- use classes group and group-has-checked to control behavior -->
-<nav class="lg:hidden group flex">
+<nav class:list={[className, "group flex"]}>
 	<Control />
 
 	<div

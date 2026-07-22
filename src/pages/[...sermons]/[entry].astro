@@ -5,7 +5,7 @@ import type { GetStaticPaths } from 'astro';
 import { Embed } from '#/components/embed';
 import { Meta } from '#/components/meta';
 import { getFeatureNavigationEntry, getSermons } from '#/content/getters';
-import Layout from '#/layouts/Layout.astro';
+import { MainLayout } from '#/layouts';
 
 export const getStaticPaths = (async () => {
 	const navigationEntry = await getFeatureNavigationEntry('sermons');
@@ -30,22 +30,20 @@ const { Content: SermonContent } = await render(entry);
 const { Content: PreacherContent } = await render(entry.preacher);
 ---
 
-<Layout pageTitle={title}>
-	<main class="layout-sermon gap-8 py-8">
-		<div class="flex flex-col gap-2">
-			<h1 class="typo-h2">{title}</h1>
-			<Meta {entry} />
-		</div>
-		<div class="h-90">
-			<Embed {entry} />
-		</div>
-		<div class="text-muted-foreground flex flex-col gap-4">
-			{entry.rendered?.html ? <SermonContent /> : <PreacherContent />}
-			{bulletinURL && (
+<MainLayout pageTitle={title} class="layout-sermon">
+	<div class="flex flex-col gap-related-tight">
+		<h1 class="typo-h2">{title}</h1>
+		<Meta {entry} />
+	</div>
+	<div class="h-90">
+		<Embed {entry} />
+	</div>
+	<div class="text-muted-foreground flex flex-col gap-related-tight">
+		{entry.rendered?.html ? <SermonContent /> : <PreacherContent />}
+		{bulletinURL && (
           <a href={bulletinURL} target="_blank" rel="noopener noreferrer" class="underline hover:decoration-primary hover:text-foreground">
             View the Bulletin
           </a>
         )}
-		</div>
-	</main>
-</Layout>
+	</div>
+</MainLayout>

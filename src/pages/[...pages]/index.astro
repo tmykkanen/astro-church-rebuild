@@ -3,7 +3,7 @@ import { getEntry, render } from 'astro:content';
 import type { GetStaticPaths } from 'astro';
 
 import { getPageNavigationEntries } from '#/content/getters';
-import Layout from '#/layouts/Layout.astro';
+import { MainLayout } from '#/layouts';
 
 export const getStaticPaths = (async () => {
 	const pageNavigationEntries = await getPageNavigationEntries();
@@ -26,12 +26,10 @@ const { page } = Astro.props;
 const { Content } = await render(page);
 ---
 
-<Layout pageTitle={page.data.title}>
-	<main class="layout-base min-h-120 justify-items-center py-8">
-		<div
-			class="prose prose-custom prose-a:hover:decoration-primary prose-a:hover:text-foreground lg:max-w-[80ch]"
-		>
-			<Content />
-		</div>
-	</main>
-</Layout>
+<MainLayout pageTitle={page.data.title} class="justify-items-center">
+	<div
+		class="prose prose-custom prose-a:hover:decoration-primary prose-a:hover:text-foreground lg:max-w-[80ch]"
+	>
+		<Content />
+	</div>
+</MainLayout>

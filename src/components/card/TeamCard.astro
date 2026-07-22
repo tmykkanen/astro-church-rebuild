@@ -22,7 +22,7 @@ const img = getImage(person.data.image);
 ---
 
 <Card class="w-full max-w-sm rounded-md h-full">
-	<CardMedia class="m-1 rounded-md">
+	<CardMedia class="m-2 rounded-md">
 		{img ? <Image
 				src={img}
 				alt={`picture of ${person.data.firstName}`}
@@ -38,7 +38,7 @@ const img = getImage(person.data.image);
 	</CardMedia>
 	<CardHeader>
 		<CardTitle>{`${person.data.firstName} ${person.data.lastName}`}</CardTitle>
-		<div class="flex items-center gap-2 justify-between">
+		<div>
 			{person.data.position}
 		</div>
 	</CardHeader>

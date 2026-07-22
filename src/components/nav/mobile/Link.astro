@@ -1,5 +1,4 @@
 ---
-import type { Variant } from '#/components/Text.astro';
 import type {
 	NavigationExternalEntry,
 	NavigationFeatureEntry,
@@ -9,7 +8,6 @@ import type {
 interface Props {
 	class?: string;
 	entry: NavigationPageEntry | NavigationExternalEntry | NavigationFeatureEntry;
-	variant?: Variant;
 }
 
 const { class: className = '', entry } = Astro.props;

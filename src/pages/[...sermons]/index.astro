@@ -3,7 +3,12 @@ import type { GetStaticPaths } from 'astro';
 
 import { EntryCard } from '#/components/card';
 import { Embed } from '#/components/embed';
-import { Combobox, Controls, Datepicker, Search } from '#/components/filters';
+import {
+	Combobox,
+	Datepicker,
+	FiltersWrapper,
+	Search,
+} from '#/components/filters';
 import { Meta } from '#/components/meta';
 import {
 	getFeatureNavigationEntry,
@@ -11,7 +16,7 @@ import {
 	getSeries,
 	getSermons,
 } from '#/content/getters';
-import Layout from '#/layouts/Layout.astro';
+import { MainLayout } from '#/layouts';
 
 export const getStaticPaths = (async () => {
 	const sermonNavigationEntry = await getFeatureNavigationEntry('sermons');
@@ -42,50 +47,38 @@ if (!latestSermon) return;
 const baseUrl = sermonNavigationEntry.customSlug || 'sermons';
 ---
 
-<Layout pageTitle={sermonNavigationEntry.label ?? 'Sermons'}>
-	<main class="layout-base gap-8 py-8">
-		<h1 class="sr-only">Sermons</h1>
+<MainLayout pageTitle={sermonNavigationEntry.label ?? 'Sermons'}>
+	<h1 class="sr-only">Sermons</h1>
 
-		<!-- Display Latest Sermon -->
-		<section class="flex min-w-0 flex-col gap-4">
-			<h2 class="typo-h2">Latest Sermon</h2>
-			<a
-				class="typo-h3 hover:underline hover:decoration-primary underline-offset-4 w-fit"
-				href={`${baseUrl}/${latestSermon.id}`}
-				>{latestSermon.data.title}</a
-			>
-			<Meta entry={latestSermon} />
-			<div class="h-38">
-				<Embed entry={latestSermon} isCompact />
-			</div>
-		</section>
+	<!-- Display Latest Sermon -->
+	<section class="flex min-w-0 flex-col gap-related-tight">
+		<h2 class="typo-h2">Latest Sermon</h2>
+		<a
+			class="typo-h3 hover:underline hover:decoration-primary underline-offset-4 w-fit"
+			href={`${baseUrl}/${latestSermon.id}`}
+			>{latestSermon.data.title}</a
+		>
+		<Meta entry={latestSermon} />
+		<div class="h-38">
+			<Embed entry={latestSermon} isCompact />
+		</div>
+	</section>
 
-		<section class="flex flex-col gap-4">
-			<h2 class="typo-h2">All Sermons</h2>
-			<div
-				class="flex flex-col gap-4 group"
-				data-filters-container
-				data-filters-hidden
-			>
-				<div class="flex flex-col gap-4 md:flex-row">
-					<Search placeholder="Search sermons..." />
-					<Controls />
-				</div>
-				<div
-					class="flex flex-col xl:grid xl:grid-cols-2 gap-4 mb-4 group-data-filters-hidden:hidden"
-				>
-					<Combobox options={allSeries} />
-					<Combobox options={allPreachers} />
-					<Datepicker type="from" />
-					<Datepicker type="to" />
-				</div>
-			</div>
-			<div class="flex flex-col gap-8 xl:grid xl:grid-cols-2">
-				{allSermons.map((sermon) => (<EntryCard entry={sermon} />))}
-			</div>
-		</section>
-	</main>
-</Layout>
+	<section class="flex flex-col gap-related-loose">
+		<FiltersWrapper>
+			<Fragment slot="label">All Sermons</Fragment>
+			<Search placeholder="Search sermons..." slot="search" />
+			<Combobox options={allSeries} />
+			<Combobox options={allPreachers} />
+			<Datepicker type="from" />
+			<Datepicker type="to" />
+		</FiltersWrapper>
+
+		<div class="flex flex-col gap-related-loose xl:grid xl:grid-cols-2">
+			{allSermons.map((sermon) => (<EntryCard entry={sermon} />))}
+		</div>
+	</section>
+</MainLayout>
 
 <script>
 import { initAllFilters } from '#/components/filters';

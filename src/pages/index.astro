@@ -3,8 +3,7 @@ import { Image } from 'astro:assets';
 
 import { Button } from '#/components/ui/button';
 import { getConfig } from '#/content/getters';
-import Layout from '#/layouts/Layout.astro';
-import { generateClamp } from '#/lib/generateClamp';
+import { BaseLayout } from '#/layouts';
 import { getImage } from '#/lib/getImage';
 
 const siteConfig = await getConfig('site');
@@ -13,7 +12,7 @@ const { hero, cta } = await getConfig('homepage');
 const bgImg = getImage(hero?.bgImage);
 ---
 
-<Layout pageTitle="Home">
+<BaseLayout pageTitle="Home">
 	<main class="relative min-h-svh">
 		<h1 class="sr-only">
 			{siteConfig.churchName}
@@ -37,7 +36,9 @@ const bgImg = getImage(hero?.bgImage);
 			</>
 		)}
 
-			<div class="layout-base isolate z-20 col-start-1 row-start-1 gap-y-8">
+			<div
+				class="layout-base isolate z-20 col-start-1 row-start-1 gap-y-related"
+			>
 				<!-- biome-ignore lint/a11y/useHeadingContent: Content is provided via set:html -->
 				<h2 class="typo-hero" set:html={hero?.text.code} />
 				{cta?.text && (
@@ -46,11 +47,10 @@ const bgImg = getImage(hero?.bgImage);
               variant={'secondary'}
               target={'_blank'}
               rel={'noopener noreferrer'}
-              class={'uppercase tracking-widest whitespace-normal font-semibold h-auto w-full rounded-md text-center cursor-pointer'}
-              style={`font-size:${generateClamp(0.75, 0.875)}`}
+              class={'uppercase tracking-widest whitespace-normal font-semibold h-auto w-full rounded-md text-center cursor-pointer text-xs md:text-sm'}
             >{cta.text.code}</Button>
           )}
 			</div>
 		</section>
 	</main>
-</Layout>
+</BaseLayout>

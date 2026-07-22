@@ -3,9 +3,8 @@ import { getEntries } from 'astro:content';
 import type { GetStaticPaths } from 'astro';
 
 import { TeamCard } from '#/components/card';
-import Text from '#/components/Text.astro';
 import { getConfig, getFeatureNavigationEntry } from '#/content/getters';
-import Layout from '#/layouts/Layout.astro';
+import { MainLayout } from '#/layouts';
 
 export const getStaticPaths = (async () => {
 	const teamNavigationEntry = await getFeatureNavigationEntry('team');
@@ -37,35 +36,21 @@ const sections = await Promise.all(
 );
 ---
 
-<Layout pageTitle={teamNavigationEntry.label ?? 'Team'}>
-	<main class="layout-base gap-8 py-8">
-		<Text as="h1" variant="heading-2">{pageTitle}</Text>
-		<Text as="p">{pageDescription}</Text>
+<MainLayout pageTitle={teamNavigationEntry.label ?? 'Team'}>
+	<section class="flex flex-col gap-related-tight">
+		<h1 class="typo-h2">{pageTitle}</h1>
+		<p>{pageDescription}</p>
+	</section>
 
-		{sections?.map((section) => (
-    		<>
-    		  <Text as="h2" variant='heading-3'>{section.name}</Text>
-      		<Text as='p'>{section.description}</Text>
-          <div class="flex flex-col gap-8 sm:grid sm:grid-cols-2 lg:grid-cols-3">
+	{sections?.map((section) => (
+    		<section class="flex flex-col gap-related-tight">
+          <h2 class="typo-h3">{section.name}</h2>
+          <p>{section.description}</p>
+          <div class="flex flex-col gap-related-loose sm:grid sm:grid-cols-2 lg:grid-cols-3">
             {section.entries.map((person) => (
             <TeamCard {person}/>
             ))}
           </div>
-    		</>
+    		</section>
 			))}
-
-		<!-- {
-      config.sections &&
-      config.sections.map((section) => (
-      <>
-        <Text as="h2">{section.name}</Text>
-        <Text as='p'>{section.description}</Text>
-        {section.entries.map((entry) => (
-        {const person = await getEntry('team', entry.id)}
-        ))}
-      </T>
-      ))
-
-    } -->
-	</main>
-</Layout>
+</MainLayout>

@@ -2,9 +2,14 @@
 import type { GetStaticPaths } from 'astro';
 
 import { EntryCard } from '#/components/card';
-import { Combobox, Controls, Datepicker, Search } from '#/components/filters';
+import {
+	Combobox,
+	Datepicker,
+	FiltersWrapper,
+	Search,
+} from '#/components/filters';
 import { getBlog, getFeatureNavigationEntry } from '#/content/getters';
-import Layout from '#/layouts/Layout.astro';
+import { MainLayout } from '#/layouts';
 
 export const getStaticPaths = (async () => {
 	const blogNavigationEntry = await getFeatureNavigationEntry('blog');
@@ -28,34 +33,22 @@ const { blogNavigationEntry } = Astro.props;
 const allPosts = await getBlog();
 ---
 
-<Layout pageTitle={blogNavigationEntry.label ?? 'Blog'}>
-	<main class="layout-base gap-8 py-8">
-		<h1 class="sr-only">Blog</h1>
-		<section class="flex flex-col gap-4">
-			<h2 class="typo-h2">All Posts</h2>
-			<div
-				class="flex flex-col gap-4 group"
-				data-filters-container
-				data-filters-hidden
-			>
-				<div class="flex flex-col gap-4 md:flex-row">
-					<Search placeholder="Search posts..." />
-					<Controls />
-				</div>
-				<div
-					class="flex flex-col xl:grid xl:grid-cols-2 gap-4 mb-4 group-data-filters-hidden:hidden"
-				>
-					<Combobox options={allPosts} />
-					<Datepicker type="from" />
-					<Datepicker type="to" />
-				</div>
-			</div>
-			<div class="flex flex-col gap-8 xl:grid xl:grid-cols-2">
-				{allPosts.map((post) => (<EntryCard entry={post} />))}
-			</div>
-		</section>
-	</main>
-</Layout>
+<MainLayout pageTitle={blogNavigationEntry.label ?? 'Blog'}>
+	<h1 class="sr-only">Blog</h1>
+	<section class="flex flex-col gap-related-loose">
+		<FiltersWrapper>
+			<Fragment slot="label">All Posts</Fragment>
+			<Search placeholder="Search posts..." slot="search" />
+			<Combobox options={allPosts} />
+			<Datepicker type="from" />
+			<Datepicker type="to" />
+		</FiltersWrapper>
+
+		<div class="flex flex-col gap-related-loose xl:grid xl:grid-cols-2">
+			{allPosts.map((post) => (<EntryCard entry={post} />))}
+		</div>
+	</section>
+</MainLayout>
 
 <script>
 import { initAllFilters } from '#/components/filters';

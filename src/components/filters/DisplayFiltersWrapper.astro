@@ -1,0 +1,24 @@
+---
+import { Controls } from './control';
+---
+
+<div class="flex flex-col gap-related-tight">
+	<h2 class="typo-h2" aria-label="label">
+		<slot name="label" />
+	</h2>
+	<div
+		class="flex flex-col gap-related group"
+		data-filters-container
+		data-filters-hidden
+	>
+		<div class="flex flex-col gap-related md:flex-row">
+			<slot name="search" />
+			<Controls />
+		</div>
+		<div
+			class="flex flex-col xl:grid xl:grid-cols-2 gap-related group-data-filters-hidden:hidden"
+		>
+			<slot />
+		</div>
+	</div>
+</div>
