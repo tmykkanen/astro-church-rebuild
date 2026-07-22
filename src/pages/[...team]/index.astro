@@ -31,7 +31,9 @@ const { pageTitle, pageDescription } = config;
 const sections = await Promise.all(
 	config.sections?.map(async (section) => ({
 		...section,
-		entries: await getEntries(section.entries),
+		entries: (await getEntries(section.entries)).filter(
+			(entry): entry is NonNullable<typeof entry> => entry !== undefined,
+		),
 	})) ?? [],
 );
 ---
