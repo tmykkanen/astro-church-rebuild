@@ -4,12 +4,12 @@ sections:
   - name: Pastors
     description: Staff and lay pastors
     entries:
-      - tyler-mykkanen
-      - joe-pastor
-      - jim-resident
+      - michael-scarn
+      - dwight-schrute
+      - jim-halpert
   - name: Deacons
-    description: Deacons and Deaconnesses
+    description: Full of faith and the Holy Spirit
     entries:
-      - jenna-deacon
-      - jill-admin
-      - julie-deacon
+      - pam-halpert
+      - andy-bernard
+      - creed-braton

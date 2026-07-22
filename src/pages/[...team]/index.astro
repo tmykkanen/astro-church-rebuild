@@ -38,14 +38,16 @@ const sections = await Promise.all(
 );
 ---
 
-<MainLayout pageTitle={teamNavigationEntry.label ?? 'Team'}>
+<MainLayout
+	pageTitle={teamNavigationEntry.label ?? 'Team'}
+	class="justify-items-center"
+>
 	<section class="flex flex-col gap-related-tight">
 		<h1 class="typo-h2">{pageTitle}</h1>
 		<p>{pageDescription}</p>
-	</section>
 
-	{sections?.map((section) => (
-    		<section class="flex flex-col gap-related-tight">
+		{sections?.map((section) => (
+    		<div class="flex flex-col gap-related-tight">
           <h2 class="typo-h3">{section.name}</h2>
           <p>{section.description}</p>
           <div class="flex flex-col gap-related-loose sm:grid sm:grid-cols-2 lg:grid-cols-3">
@@ -53,6 +55,7 @@ const sections = await Promise.all(
             <TeamCard {person}/>
             ))}
           </div>
-    		</section>
+    		</div>
 			))}
+	</section>
 </MainLayout>
