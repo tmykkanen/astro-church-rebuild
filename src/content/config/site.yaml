@@ -9,5 +9,17 @@ socials:
   - name: Youtube
     icon: youtube
     link: https://www.youtube.com
-    tooltip: ''
+    showInFooter: true
+  - name: Facebook
+    icon: facebook
+    link: https://www.facebook.com/
+    showInFooter: true
+  - name: Spotify
+    icon: spotify
+    link: https://open.spotify.com/
+    showInFooter: true
+  - name: Message
+    icon: whatsapp
+    link: sms:+11231231234
+    tooltip: Click to send text message
     showInFooter: true

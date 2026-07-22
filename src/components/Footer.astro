@@ -2,22 +2,49 @@
 import { getConfig } from '#/content/getters';
 
 import { Socials } from './social';
+import { SubscribeForm } from './subscribe';
+import { Button } from './ui/button';
 
 const siteConfig = await getConfig('site');
 const footerConfig = await getConfig('footer');
 ---
 
-<footer class="bg-secondary text-secondary-foreground layout-base py-8">
-	<section class="flex flex-col gap-8">
-		{footerConfig.sections?.map((section) => (
-		<div class="flex flex-col gap-2">
+<footer
+	class="bg-secondary text-secondary-foreground layout-base py-unrelated-tight"
+>
+	<div class="grid gap-unrelated md:grid-cols-2 lg:grid-cols-3">
+		<section class="flex flex-col gap-related">
+			{footerConfig.sections?.map((section) => (
+		<div class="flex flex-col">
       <h2 class='typo-h3'>{section.heading}</h2>
       <span set:html={section.content} />
 		</div>
     ))}
-		{siteConfig.socials &&
+			{siteConfig.socials &&
       <div class="flex">
     		<Socials socials={siteConfig.socials} />
    	</div>}
-	</section>
+		</section>
+
+		{footerConfig.subscribe?.isActive && (
+  	<section class="flex flex-col gap-related">
+     <div>
+       <h2 class="typo-h3">{footerConfig.subscribe.heading}</h2>
+       <span set:html={footerConfig.subscribe.content} />
+     </div>
+     <SubscribeForm />
+  	</section>
+   )}
+
+		{footerConfig.giving?.isActive && (
+   	<section class="flex flex-col gap-related">
+      <div>
+        <h2 class="typo-h3">{footerConfig.giving.heading}</h2>
+        <span set:html={footerConfig.giving.content} />
+      </div>
+      <Button as="a" target="_blank"
+      rel="noopener noreferrer" href={footerConfig.giving.link} class="bg-muted hover:bg-primary text-primary hover:text-primary-foreground border-ring border shadow-xs focus-visible:ring-ring focus-visible:ring-2">Give</Button>
+   	</section>
+    )}
+	</div>
 </footer>

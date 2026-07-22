@@ -2,7 +2,7 @@
 
 import netlify from '@astrojs/netlify';
 import tailwindcss from '@tailwindcss/vite';
-import { defineConfig, fontProviders } from 'astro/config';
+import { defineConfig, envField, fontProviders } from 'astro/config';
 import icon from 'astro-icon';
 
 // bejamas:astro-fonts:start
@@ -29,13 +29,27 @@ export default defineConfig({
 	site: SITE_URL ?? 'http://localhost:4321',
 	trailingSlash: 'ignore',
 	base: '/',
+
 	build: {
 		format: 'directory',
 	},
+
 	fonts: BEJAMAS_ASTRO_FONTS,
+
+	env: {
+		schema: {
+			RESEND_API_KEY: envField.string({ context: 'server', access: 'secret' }),
+			RESEND_SEGMENT_ID: envField.string({
+				context: 'server',
+				access: 'secret',
+			}),
+		},
+	},
+
 	vite: {
 		plugins: [tailwindcss()],
 	},
+
 	integrations: [icon()],
 
 	// image: {

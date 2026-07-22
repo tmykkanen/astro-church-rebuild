@@ -1,0 +1,67 @@
+---
+import { Button } from '#/components/ui/button';
+import { Field, FieldError, FieldGroup, FieldSet } from '#/components/ui/field';
+import { Input } from '#/components/ui/input';
+import { Spinner } from '#/components/ui/spinner';
+---
+
+<form id="subscribe-form" class="w-full max-w-xl">
+	<FieldSet>
+		<FieldGroup class="gap-related-tight">
+			<Field>
+				<Input
+					id="firstName"
+					name="firstName"
+					class="bg-muted text-muted-foreground"
+					placeholder="First Name"
+				/>
+				<FieldError forceMount class="hidden" data-error-for="firstName" />
+			</Field>
+			<Field>
+				<Input
+					id="lastName"
+					name="lastName"
+					class="bg-muted text-muted-foreground"
+					placeholder="Last Name"
+				/>
+				<FieldError forceMount class="hidden" data-error-for="lastName" />
+			</Field>
+			<Field>
+				<Input
+					id="email"
+					name="email"
+					type="email"
+					class="bg-muted text-muted-foreground"
+					placeholder="Email Address"
+				/>
+				<FieldError forceMount class="hidden" data-error-for="email" />
+			</Field>
+
+			<input
+				type="text"
+				name="_gotcha"
+				tabindex="-1"
+				autocomplete="off"
+				aria-hidden="true"
+				class="absolute -left-[9999px]"
+			>
+
+			<Button
+				type="submit"
+				class="bg-muted hover:bg-primary text-primary hover:text-primary-foreground border-ring border shadow-xs focus-visible:ring-ring focus-visible:ring-2"
+				data-submit-button
+			>
+				<Spinner data-icon data-submit-spinner class="hidden" />
+				<span data-submit-label>Subscribe</span>
+			</Button>
+		</FieldGroup>
+	</FieldSet>
+</form>
+
+<div data-result-box class="text-sm font-bold" />
+
+<script>
+import { init } from './init';
+
+init();
+</script>

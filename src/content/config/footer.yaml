@@ -8,10 +8,9 @@ sections:
 subscribe:
   isActive: true
   heading: Weekly Bulletin
-  content: Sign up to stay informed and connected to Astro Church weekly happenings.
+  content: Subscribe below to our weekly bulletin.
 giving:
   isActive: true
   heading: Give to Astro Church
   content: Click below to set up a one time or recurring gift to Astro Church.
   link: https://get.tithe.ly/
-form: null
