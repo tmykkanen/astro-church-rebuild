@@ -13,6 +13,8 @@
 @import "layout.css";
 @import "typography.css";
 
+/* Plugins */
+/*@import "fullcalendar-theme.css";*/
 @plugin "@tailwindcss/typography";
 
 @layer base {

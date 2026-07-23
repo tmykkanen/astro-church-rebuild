@@ -24,6 +24,7 @@
 		"@data-slot/combobox": "^0.2.166",
 		"@data-slot/navigation-menu": "^0.2.166",
 		"@data-slot/tooltip": "^0.2.166",
+		"@fullcalendar/google-calendar": "^7.0.1",
 		"@iconify-json/lucide": "^1.2.116",
 		"@iconify-json/simple-icons": "^1.2.89",
 		"@lucide/astro": "^1.24.0",
@@ -37,10 +38,12 @@
 		"class-variance-authority": "^0.7.1",
 		"clsx": "^2.1.1",
 		"date-fns": "^4.4.0",
+		"fullcalendar": "^7.0.1",
 		"fuse.js": "^7.4.2",
 		"resend": "^6.17.2",
 		"tailwind-merge": "^3.6.0",
 		"tailwindcss": "^4.3.2",
+		"temporal-polyfill": "^1.0.1",
 		"vanilla-calendar-pro": "^3.1.0"
 	},
 	"devDependencies": {

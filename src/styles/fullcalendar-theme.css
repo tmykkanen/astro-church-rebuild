@@ -1,0 +1,80 @@
+@reference "./global.css";
+
+.astro-church-cal {
+	.toolbar {
+		.toolbar-title {
+			@apply typo-h2;
+		}
+
+		.button {
+			@apply bg-muted border-muted text-muted-foreground rounded-sm font-medium uppercase;
+
+			&:hover {
+				@apply bg-accent border-accent;
+			}
+
+			&:active {
+				@apply bg-muted/50 border-muted/50;
+			}
+		}
+
+		.button-group {
+			> .button {
+				@apply rounded-none;
+			}
+			> .button:first-child {
+				@apply rounded-l-sm;
+			}
+
+			> .button:last-child {
+				@apply rounded-r-sm;
+			}
+		}
+	}
+
+	.view {
+		@apply bg-transparent rounded-sm border-muted;
+	}
+
+	.list-day {
+		@apply border-muted;
+	}
+
+	.list-day-header {
+		@apply bg-muted text-muted-foreground border-muted;
+
+		&[aria-current="date"] {
+			@apply text-primary;
+		}
+
+		div {
+			@apply font-medium uppercase tracking-widest;
+		}
+	}
+
+	.list-item-event {
+		@apply border-muted;
+
+		.list-item-event-before {
+			@apply border-primary border-5;
+		}
+
+		.list-item-event-title {
+			@apply whitespace-normal;
+		}
+
+		/* biome-ignore-start  lint/style/noDescendingSpecificity: hover selectors intentionally override base styles */
+		&:hover {
+			@apply bg-accent;
+
+			.list-item-event-title {
+				@apply decoration-primary;
+			}
+		}
+
+		&:active {
+			@apply bg-muted/50 border-muted/50;
+		}
+		/* biome-ignore-end  lint/style/noDescendingSpecificity: hover selectors intentionally override base styles */
+	}
+}

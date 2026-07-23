@@ -43,6 +43,14 @@ export default defineConfig({
 				context: 'server',
 				access: 'secret',
 			}),
+			PUBLIC_GOOGLE_CALENDAR_ID: envField.string({
+				context: 'client',
+				access: 'public',
+			}),
+			PUBLIC_GOOGLE_CALENDAR_API_KEY: envField.string({
+				context: 'client',
+				access: 'public',
+			}),
 		},
 	},
 

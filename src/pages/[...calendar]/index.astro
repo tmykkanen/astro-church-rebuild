@@ -1,0 +1,30 @@
+---
+import type { GetStaticPaths } from 'astro';
+
+import Calendar from '#/components/Calendar.astro';
+import { getFeatureNavigationEntry } from '#/content/getters';
+import { MainLayout } from '#/layouts';
+
+export const getStaticPaths = (async () => {
+	const calendarNavigationEntry = await getFeatureNavigationEntry('calendar');
+
+	return calendarNavigationEntry
+		? [
+				{
+					params: {
+						calendar: calendarNavigationEntry.customSlug || 'calendar',
+					},
+					props: {
+						calendarNavigationEntry,
+					},
+				},
+			]
+		: [];
+}) satisfies GetStaticPaths;
+
+const { calendarNavigationEntry } = Astro.props;
+---
+
+<MainLayout pageTitle={calendarNavigationEntry.label ?? 'Calendar'}>
+	<Calendar />
+</MainLayout>
