@@ -31,10 +31,10 @@ const { Content } = await render(entry);
 <!-- TODO: Add date to blog post entry -->
 <MainLayout pageTitle={title} class="layout-prose">
 	<div class="flex flex-col gap-2">
-		<h1 class="typo-h2">{title}</h1>
+		<h1 class="typo-h1">{title}</h1>
 		<Meta {entry} />
 	</div>
-	<div class="text-muted-foreground flex flex-col gap-related-tight">
+	<div class="prose prose-custom">
 		<Content />
 	</div>
 </MainLayout>

@@ -14,9 +14,10 @@ interface Props {
 }
 
 const sermonNavigationEntry = await getFeatureNavigationEntry('sermons');
+const blogNavigationEntry = await getFeatureNavigationEntry('blog');
 
-const sermonBaseUrl =
-	sermonNavigationEntry?.customSlug || sermonNavigationEntry?.featureType;
+const sermonBaseUrl = sermonNavigationEntry?.customSlug || 'sermons';
+const blogBaseUrl = blogNavigationEntry?.customSlug || 'blog';
 
 const { entry, ...props } = Astro.props;
 
@@ -33,8 +34,6 @@ const { date } = entry.data;
 		</span>
 	</Badge>
 
-	<!-- TODO: Add formatting for small screens -->
-	<!-- TODO: Add linking -->
 	{entry.collection === 'sermons' && (
 
   <>
@@ -51,7 +50,7 @@ const { date } = entry.data;
 
     <Badge as="a" href={`/${sermonBaseUrl}?preacher=${entry.data.preacher.id}`} class:list={'hidden sm:flex'} {...props}>{entry.preacher.data.firstName}{' '}{entry.preacher.data.lastName}</Badge>
 
-    <Badge as="a" href='#' class:list={'hidden sm:flex'} {...props}>
+    <Badge as="a" href={`/${sermonBaseUrl}?series=${entry.series.id}`} class:list={'hidden sm:flex'} {...props}>
         {entry.series.data.title}
     </Badge>
   </>
@@ -59,6 +58,6 @@ const { date } = entry.data;
 
 	{entry.collection === 'blog' &&
   entry.data.tags.map((tag) => (
-  <Badge {...props}>{tag}</Badge>
+  <Badge as="a" href={`/${blogBaseUrl}?tag=${tag}`} {...props}>{tag}</Badge>
   ))}
 </div>

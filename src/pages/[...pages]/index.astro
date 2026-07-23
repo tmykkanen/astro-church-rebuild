@@ -26,10 +26,8 @@ const { page } = Astro.props;
 const { Content } = await render(page);
 ---
 
-<MainLayout pageTitle={page.data.title} class="justify-items-center">
-	<div
-		class="prose prose-custom prose-a:hover:decoration-primary prose-a:hover:text-foreground lg:max-w-[80ch]"
-	>
+<MainLayout pageTitle={page.data.title} class="layout-prose">
+	<div class="prose prose-custom">
 		<Content />
 	</div>
 </MainLayout>

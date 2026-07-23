@@ -120,6 +120,10 @@
 	--tw-prose-invert-pre-bg: var(--muted);
 	--tw-prose-invert-th-borders: var(--accent);
 	--tw-prose-invert-td-borders: var(--accent);
+
+	& a:hover {
+		@apply decoration-primary text-foreground;
+	}
 }
 
 .prose-custom h1 {

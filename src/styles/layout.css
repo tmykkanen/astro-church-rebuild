@@ -47,6 +47,12 @@
 	);
 }
 
+@media (width >= 48rem /* 768px */) {
+	:root {
+		--layout-prose: 80ch;
+	}
+}
+
 @utility layout-* {
 	--layout-max-width: --value(--layout-*);
 	/*--layout-padding: calc(var(--spacing) * 8);*/
