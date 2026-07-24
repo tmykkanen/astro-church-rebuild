@@ -1,21 +1,21 @@
 // @ts-check
-
 import netlify from '@astrojs/netlify';
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig, envField, fontProviders } from 'astro/config';
 import icon from 'astro-icon';
 
-// bejamas:astro-fonts:start
-/** @type {NonNullable<import("astro").AstroUserConfig["fonts"]>} */
-const BEJAMAS_ASTRO_FONTS = [
-	{
-		provider: fontProviders.google(),
-		name: 'Poppins',
-		cssVariable: '--font-sans',
-		subsets: ['latin'],
-	},
-];
-// bejamas:astro-fonts:end
+import { getConfigFile, getFeature, requireEnv } from './src/lib/verifyEnvVars';
+
+// If feature is active, verify Env variables set
+if (getConfigFile('footer').subscribe?.isActive) {
+	requireEnv('RESEND_API_KEY');
+	requireEnv('RESEND_SEGMENT_ID');
+}
+
+if (getFeature('calendar')) {
+	requireEnv('PUBLIC_GOOGLE_CALENDAR_API_KEY');
+	requireEnv('PUBLIC_GOOGLE_CALENDAR_ID');
+}
 
 //biome-ignore-start lint/complexity/useLiteralKeys: fine here
 const SITE_URL =
@@ -34,7 +34,14 @@ export default defineConfig({
 		format: 'directory',
 	},
 
-	fonts: BEJAMAS_ASTRO_FONTS,
+	fonts: [
+		{
+			provider: fontProviders.google(),
+			name: 'Poppins',
+			cssVariable: '--font-sans',
+			subsets: ['latin'],
+		},
+	],
 
 	env: {
 		schema: {

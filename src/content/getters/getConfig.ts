@@ -9,9 +9,9 @@ const collectionMap = {
 	theme: 'config:theme',
 } as const;
 
-type ConfigName = keyof typeof collectionMap;
+export type ConfigName = keyof typeof collectionMap;
 
-type ConfigCollection<C extends ConfigName> = (typeof collectionMap)[C];
+export type ConfigCollection<C extends ConfigName> = (typeof collectionMap)[C];
 
 export const getConfig = async <C extends ConfigName>(
 	collection: C,
