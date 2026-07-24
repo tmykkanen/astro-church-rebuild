@@ -48,7 +48,7 @@ const baseUrl = navigationEntry?.customSlug || type;
     </a>}
 
 	<div class="flex flex-col justify-center gap-2 p-4 md:p-8 flex-2 min-w-0">
-		<a href={`${baseUrl}/${entry.id}`}>
+		<a href={`/${baseUrl}/${entry.id}`}>
 			<h3 class="typo-h4">{entry.data.title}</h3>
 		</a>
 		<Meta {entry} variant="outline" />
