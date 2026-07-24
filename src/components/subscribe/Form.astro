@@ -65,3 +65,16 @@ import { init } from './init';
 
 init();
 </script>
+
+<style>
+/* Target autofilled input states */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+	/* biome-ignore-start lint/complexity/noImportantStyles: needed to override webkit styles */
+	-webkit-box-shadow: 0 0 0px 1000px var(--color-muted) inset !important;
+	-webkit-text-fill-color: var(--color-muted) !important;
+	/* biome-ignore-end lint/complexity/noImportantStyles: needed to override webkit styles */
+}
+</style>
