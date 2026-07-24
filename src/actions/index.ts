@@ -42,8 +42,10 @@ export const server = {
 			});
 
 			if (error) {
+				console.log(error);
 				return {
 					ok: false,
+					error,
 					message: 'Error subscribing. Please try again.',
 				};
 			}

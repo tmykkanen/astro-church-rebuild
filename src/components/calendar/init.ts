@@ -1,6 +1,3 @@
-<div id="calendar"></div>
-
-<script>
 import {
 	PUBLIC_GOOGLE_CALENDAR_API_KEY,
 	PUBLIC_GOOGLE_CALENDAR_ID,
@@ -14,10 +11,8 @@ import 'fullcalendar/skeleton.css';
 import 'fullcalendar/themes/classic/theme.css';
 import '#/styles/fullcalendar-theme.css';
 
-const calendarEl = document.getElementById('calendar');
-
-if (calendarEl) {
-	const calendar = new Calendar(calendarEl, {
+export const init = (el: HTMLElement) => {
+	const calendar = new Calendar(el, {
 		plugins: [themePlugin, googleCalendarPlugin, listPlugin],
 		initialView: 'listMonth',
 		contentHeight: 'auto',
@@ -40,8 +35,14 @@ if (calendarEl) {
 		listItemEventClass: 'list-item-event',
 		listItemEventTitleClass: 'list-item-event-title',
 		listItemEventBeforeClass: 'list-item-event-before',
+		// eventSourceFailure(error) {
+		// 	console.error('Calendar failed to load. Check configuration.', error);
+		// 	calendar.destroy();
+
+		// 	el.innerHTML =
+		// 		'<p data-calendar-error class="text-destructive">Calendar is currently unavailable.</p>';
+		// },
 	});
 
 	calendar.render();
-}
-</script>
+};

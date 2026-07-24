@@ -1,0 +1,19 @@
+<div id="calendar"></div>
+
+<script>
+import { init } from './init';
+import { preflight } from './preflight';
+
+const el = document.getElementById('calendar');
+
+const ready = await preflight();
+
+if (ready.ok && el instanceof HTMLElement) {
+	init(el);
+} else if (el instanceof HTMLElement) {
+	el.innerHTML = `<p data-calendar-error class="text-destructive">Calendar is currently unavailable. Error message: ${ready.error.message}</p>`;
+	console.error('Calendar preflight failed. Check configuration.', ready.error);
+} else {
+	console.error('Calendar preflight failed. Check configuration.', ready.error);
+}
+</script>

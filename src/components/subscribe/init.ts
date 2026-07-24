@@ -28,9 +28,6 @@ export const init = () => {
 
 	const messageEl = document.querySelector('[data-result-box]');
 
-	const wait = (ms: number) =>
-		new Promise((resolve) => setTimeout(resolve, ms));
-
 	const setSubmitting = (submitting: boolean) => {
 		submitButton.disabled = submitting;
 		// if (resetButton instanceof HTMLButtonElement) {
@@ -60,7 +57,6 @@ export const init = () => {
 
 		const [result] = await Promise.all([
 			actions.subscribeClient(new FormData(form)),
-			wait(900),
 		]);
 
 		setSubmitting(false);
@@ -83,11 +79,13 @@ export const init = () => {
 		}
 
 		if (result.data) {
+			const { ok, message, error } = result.data;
+
+			error && console.log(error);
+
 			if (messageEl instanceof HTMLElement) {
-				messageEl.textContent = result.data.message;
-				messageEl.classList.add(
-					result.data.ok ? 'text-primary' : 'text-destructive',
-				);
+				messageEl.textContent = message;
+				messageEl.classList.add(ok ? 'text-primary' : 'text-destructive');
 				messageEl.classList.remove('hidden');
 			}
 
